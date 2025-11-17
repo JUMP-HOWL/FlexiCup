@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="FlexiCup: Wireless Multimodal Suction Cup with Active Sensing Using Diffusion Policies">
+  <meta name="keywords" content="FlexiCup, Multimodal Sensing, Suction Manipulation, Visuotactile Sensing, Learned Control">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FlexiCup: Wireless Multimodal Suction Cup with Active Sensing Using Diffusion Policies</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.png">
+
+  <!-- Plyr Video Player -->
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <!-- Plyr Video Player JS -->
+  <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+
+  <style>
+    body {
+      zoom: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* Custom video player styles */
+    .video-container {
+      margin: 30px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .plyr {
+      border-radius: 10px;
+    }
+
+    .plyr__controls {
+      background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.7));
+    }
+
+    /* Side navigation */
+    .side-nav {
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .side-nav a {
+      display: block;
+      padding: 8px 0;
+      color: #363636;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .side-nav a:hover {
+      color: #3273dc;
+    }
+
+    .side-nav a.active {
+      color: #3273dc;
+      font-weight: bold;
+    }
+
+    /* Section spacing */
+    section {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      margin-bottom: 40px;
+      border-bottom: 2px solid #3273dc;
+      padding-bottom: 10px;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .side-nav {
+        display: none;
+      }
+      body {
+        zoom: 1;
+      }
+    }
+  </style>
+
+  <script>
+    // Initialize Plyr video players when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      const players = Array.from(document.querySelectorAll('.video-player')).map(p => new Plyr(p, {
+        controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'pip', 'fullscreen'],
+        settings: ['speed'],
+        speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 2] },
+        autoplay: false,
+        clickToPlay: true,
+        hideControls: true,
+        resetOnEnd: false
+      }));
+
+      // Side navigation active state
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.side-nav a');
+
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (scrollY >= (sectionTop - 200)) {
+            current = section.getAttribute('id');
+          }
+        });
+
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href').substring(1) === current) {
+            link.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+
+<!-- Side Navigation -->
+<nav class="side-nav">
+  <a href="#overview">Overview</a>
+  <a href="#hardware">Hardware Design</a>
+  <a href="#modular">Modular Grasping</a>
+  <a href="#learning">End-to-End Learning</a>
+</nav>
+
+<!-- Hero Section -->
+<section id="overview" class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">FlexiCup: Wireless Multimodal Suction Cup with Dual-Zone Vision-Tactile Sensing</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Anonymous Submission</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link -->
+              <span class="link-block">
+                <a href="./PDF/paper.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Hardware Link -->
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-dark" style="cursor: not-allowed; opacity: 0.6;">
+                  <span class="icon">
+                      <i class="fas fa-microchip"></i>
+                  </span>
+                  <span>Hardware</span>
+                </a>
+              </span>
+              <!-- Firmware Link -->
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-dark" style="cursor: not-allowed; opacity: 0.6;">
+                  <span class="icon">
+                      <i class="fas fa-code"></i>
+                  </span>
+                  <span>Firmware</span>
+                </a>
+              </span>
+            </div>
+            <!-- Update notice for Hardware and Firmware -->
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #999;">
+              Hardware and Firmware details will be available upon paper acceptance
+            </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Overview Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">System Overview</h2>
+        <img src="./static/images/image/FigCover.png" alt="FlexiCup System Overview" style="width:100%; margin-bottom: 30px;" />
+        <div class="content has-text-justified" style="margin-bottom: 20px;">
+          <p>
+            FlexiCup is a fully wireless multimodal suction cup that integrates dual-zone vision-tactile sensing. The central zone dynamically switches between vision and tactile modalities via illumination control for contact detection, while the peripheral zone provides continuous spatial awareness for approach planning. FlexiCup supports both vacuum and Bernoulli suction modes through modular mechanical configurations, achieving complete wireless autonomy with onboard computation and power. The system achieves maximum suction force of 34.3N with tactile resolution of 60,248 pixels·cm⁻², streaming 1024×768 images at 30Hz over Wi-Fi.
+          </p>
+        </div>
+        <div class="video-container">
+          <video class="video-player" playsinline controls preload="metadata">
+            <source src="./static/video/websitevideo/overview.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Hardware Design Section -->
+<section id="hardware" class="section" style="background-color: #fafafa;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2 section-title">Hardware Design</h2>
+
+    <!-- System Integration -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3">System Integration and Architecture</h3>
+        <div class="video-container">
+          <video class="video-player" playsinline controls preload="metadata">
+            <source src="./static/video/websitevideo/integrated_show.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="content has-text-justified" style="margin-top: 20px;">
+          <p>
+            The system features modular component integration including airways, optical system (OV5640 camera with 180° fisheye lens), electronics (ESP32S3 controller), and mechanical assembly. Wireless charging configuration enables standalone operation with a 3.7V 300mAh lithium battery, supporting both tethered and wireless modes.
+          </p>
+        </div>
+        <img src="./static/images/image/FigStructure.png" alt="System Architecture" style="width:100%; margin-top: 30px;" />
+      </div>
+    </div>
+
+    <!-- Dual-Mode Mechanisms -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3">Reconfigurable Dual-Mode Suction Mechanisms</h3>
+        <img src="./static/images/image/FigDualMode.png" alt="Dual-Mode Suction Mechanisms" style="width:100%;" />
+        <div class="content has-text-justified" style="margin-top: 20px;">
+          <p>
+            FlexiCup supports both vacuum and Bernoulli suction modes through modular mechanical configurations. Vacuum mode provides strong adhesion for rigid objects, while Bernoulli mode enables contactless levitation and gentle manipulation of delicate items. Four modular bottom configurations accommodate diverse object geometries.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vision-Tactile Sensing -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3">Vision-Tactile Sensing System</h3>
+        <div class="video-container">
+          <video class="video-player" playsinline controls preload="metadata">
+            <source src="./static/video/websitevideo/multimodal_performance.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="content has-text-justified" style="margin-top: 20px;">
+          <p>
+            A single 180° fisheye camera enables dynamic switching between environmental vision and precise tactile perception through LED illumination control. The dual-zone sensing system provides central zone switchable visuotactile sensing and peripheral zone continuous spatial awareness. Multimodal fusion achieves 100% recognition accuracy across diverse object categories, significantly outperforming vision-only (82.5%) and tactile-only (46.7%) approaches.
+          </p>
+        </div>
+
+        <!-- Two-Column Layout for Dual-Zone and PDMS -->
+        <div class="columns" style="margin-top: 40px;">
+          <!-- Dual-Zone Sensing Architecture -->
+          <div class="column is-half">
+            <div style="padding: 0 20px;">
+              <h4 class="title is-4">Dual-Zone Sensing</h4>
+              <img src="./static/images/image/FigVisionTactile.png" alt="Vision-Tactile Sensing System" style="width:100%;" />
+              <div class="content has-text-justified" style="margin-top: 15px;">
+                <p>
+                  The peripheral zone maintains environmental awareness through continuous vision across both modalities, while the central zone provides high-resolution tactile feedback through LED-controlled illumination switching. This architecture enables simultaneous spatial context understanding and precise contact detection.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- PDMS Membrane Design -->
+          <div class="column is-half">
+            <div style="padding: 0 20px;">
+              <h4 class="title is-4">PDMS Membrane Design</h4>
+              <img src="./static/images/image/FigPDMS.png" alt="PDMS Membrane Design" style="width:100%;" />
+              <div class="content has-text-justified" style="margin-top: 15px;">
+                <p>
+                  The membrane consists of a dual-layer system with PDMS base layer (30:1 ratio, 70°C×4h) providing mechanical compliance and semitransparent reflective layer (Ag:PDMS 100:1, 70°C×0.5h) enabling photometric tactile imaging. Four modular configurations (I-IV) support both vacuum (I-II) and Bernoulli (III-IV) operations, achieving adhesion force ranges from sub-Newton to over 30N.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modular Perception-Driven Grasping Section -->
+<section id="modular" class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2 section-title">Modular Perception-Driven Grasping</h2>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <img src="./static/images/image/FigExperimentSetup2.png" alt="Experimental Setup and Framework" style="width:100%; margin-bottom: 30px;" />
+        <div class="video-container">
+          <video class="video-player" playsinline controls preload="metadata">
+            <source src="./static/video/websitevideo/modular_task.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="content has-text-justified" style="margin-top: 20px;">
+          <p>
+            The modular control framework demonstrates threshold-based perception-driven grasping with dual-mode suction mechanisms. Experimental evaluation on LEGO board manipulation tasks shows vacuum mode achieving 90.0% success rate and Bernoulli mode achieving 86.7% success rate. The system successfully handles object localization, obstacle detection, surface alignment, and contact confirmation through visuotactile sensing.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- End-to-End Learning Section -->
+<section id="learning" class="section" style="background-color: #fafafa;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2 section-title">End-to-End Contact-Aware Manipulation</h2>
+
+    <!-- Learning Framework -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3">Multimodal Learning Framework</h3>
+        <img src="./static/images/image/FigFramework.png" alt="Learning Framework" style="width:100%;" />
+        <div class="content has-text-justified" style="margin-top: 20px;">
+          <p>
+            The diffusion policy network processes multiscale observations from workspace and dual-zone suction cameras through parallel ResNet-18 encoders. A multihead attention mechanism enables interaction between peripheral and central features, integrating visuotactile information for contact-aware manipulation. The unified framework outputs robot pose, illumination control, and valve state commands.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Task Demonstrations Flowchart -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
+      <div class="column is-four-fifths">
+        <img src="./static/images/image/FigTaskRollouts.png" alt="Task Demonstrations Flowchart" style="width:100%; margin-bottom: 40px;" />
+      </div>
+    </div>
+
+    <!-- Two-Column Task Layout -->
+    <div class="columns" style="margin-top: 20px;">
+      <!-- Inclined Transport Task -->
+      <div class="column is-half">
+        <div style="padding: 0 20px;">
+          <h3 class="title is-3 has-text-centered">Inclined Transport Task</h3>
+          <div class="video-container">
+            <video class="video-player" playsinline controls preload="metadata">
+              <source src="./static/video/websitevideo/dptask1.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="content has-text-justified" style="margin-top: 20px;">
+            <p>
+              The inclined transport task demonstrates six-stage manipulation: workspace observation for initial localization, suction camera-guided search, approach and alignment using peripheral vision, inclined transport with tactile contact detection, contact confirmation through central zone sensing, and final object lifting. The system achieves 73.3% success rate with multihead attention mechanism improving performance by 13% compared to baseline approaches.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orange Extraction Task -->
+      <div class="column is-half">
+        <div style="padding: 0 20px;">
+          <h3 class="title is-3 has-text-centered">Orange Extraction Task</h3>
+          <div class="video-container">
+            <video class="video-player" playsinline controls preload="metadata">
+              <source src="./static/video/websitevideo/dptask2.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="content has-text-justified" style="margin-top: 20px;">
+            <p>
+              The orange extraction task involves lid removal, re-alignment, and tactile-guided grasping of deformable objects from containers. The system achieves 66.7% success rate, demonstrating the effectiveness of integrating multimodal sensing with learned control for contact-aware manipulation of compliant objects. Ablation studies confirm that central zone sensing is essential for contact detection while attention mechanisms significantly enhance feature coordination.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
