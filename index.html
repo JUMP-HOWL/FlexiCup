@@ -78,6 +78,8 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      max-height: 80vh;
+      overflow-y: auto;
     }
 
     .side-nav a {
@@ -89,13 +91,20 @@
       transition: color 0.3s;
     }
 
-    .side-nav a:hover {
-      color: #3273dc;
+    .side-nav a.main-link {
+      font-weight: 600;
+      margin-top: 12px;
+      margin-bottom: 6px;
     }
 
-    .side-nav a.active {
+    .side-nav a.sub-link {
+      padding-left: 16px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .side-nav a:hover {
       color: #3273dc;
-      font-weight: bold;
     }
 
     /* Section spacing */
@@ -130,27 +139,30 @@
         resetOnEnd: false
       }));
 
-      // Side navigation active state
-      const sections = document.querySelectorAll('section[id]');
-      const navLinks = document.querySelectorAll('.side-nav a');
+      // Dual-Mode image hover effect
+      const dualModeContainer = document.querySelector('#dualModeImg').parentElement;
+      const dualModeImg = document.getElementById('dualModeImg');
+      const dualModeImgHover = document.getElementById('dualModeImgHover');
+      const dualModeCaption = document.getElementById('dualModeCaption');
 
-      window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.clientHeight;
-          if (scrollY >= (sectionTop - 200)) {
-            current = section.getAttribute('id');
-          }
-        });
+      const captionDefault = 'Mechanical configurations: vacuum (left) and Bernoulli (right) suction mechanisms';
+      const captionHover = 'CFD simulation: static pressure distribution. Vacuum (left, ≈-94 kPa) vs. Bernoulli (right, ≈+0.41 MPa)';
 
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href').substring(1) === current) {
-            link.classList.add('active');
-          }
-        });
+      dualModeContainer.addEventListener('mouseenter', () => {
+        dualModeImg.style.opacity = '0';
+        dualModeImgHover.style.opacity = '1';
+        dualModeCaption.textContent = captionHover;
       });
+
+      dualModeContainer.addEventListener('mouseleave', () => {
+        dualModeImg.style.opacity = '1';
+        dualModeImgHover.style.opacity = '0';
+        dualModeCaption.textContent = captionDefault;
+      });
+
+      // Side navigation - simple jump functionality only
+      // No active state tracking needed, just smooth scrolling
+    });
     });
   </script>
 </head>
@@ -158,10 +170,21 @@
 
 <!-- Side Navigation -->
 <nav class="side-nav">
-  <a href="#overview">Overview</a>
-  <a href="#hardware">Hardware Design</a>
-  <a href="#modular">Modular Grasping</a>
-  <a href="#learning">End-to-End Learning</a>
+  <a href="#overview" class="main-link">Overview</a>
+  
+  <a href="#hardware" class="main-link">Hardware Design</a>
+  <a href="#hw-architecture" class="sub-link">System Architecture</a>
+  <a href="#hw-dualmode" class="sub-link">Dual-Mode Mechanisms</a>
+  <a href="#hw-sensing" class="sub-link">Vision-Tactile Sensing</a>
+  
+  <a href="#characterization" class="main-link">System Characterization</a>
+  <a href="#char-force" class="sub-link">Force Characterization</a>
+  <a href="#char-wafer" class="sub-link">Wafer Pick-up</a>
+  <a href="#char-dynamic" class="sub-link">Dynamic Performance</a>
+  
+  <a href="#applications" class="main-link">Applications</a>
+  <a href="#app-modular" class="sub-link">Modular Grasping</a>
+  <a href="#app-learning" class="sub-link">End-to-End Learning</a>
 </nav>
 
 <!-- Hero Section -->
@@ -224,7 +247,7 @@
         <img src="./static/images/image/FigCover.png" alt="FlexiCup System Overview" style="width:100%; margin-bottom: 30px;" />
         <div class="content has-text-justified" style="margin-bottom: 20px;">
           <p>
-            FlexiCup is a fully wireless multimodal suction cup that integrates dual-zone vision-tactile sensing. The central zone dynamically switches between vision and tactile modalities via illumination control for contact detection, while the peripheral zone provides continuous spatial awareness for approach planning. FlexiCup supports both vacuum and Bernoulli suction modes through modular mechanical configurations, achieving complete wireless autonomy with onboard computation and power. The system achieves maximum suction force of 34.3N with tactile resolution of 60,248 pixels·cm⁻², streaming 1024×768 images at 30Hz over Wi-Fi.
+            FlexiCup is a wireless multimodal suction cup that integrates dual-zone vision-tactile sensing. The central zone dynamically switches between vision and tactile modalities via illumination control for contact detection, while the peripheral zone provides continuous spatial awareness for approach planning. FlexiCup supports both vacuum and Bernoulli suction modes through modular mechanical configurations, achieving complete wireless autonomy with onboard computation and power. The system achieves maximum suction force of 34.3N with tactile resolution of 60,248 pixels·cm⁻², streaming 1024×768 images at 30Hz over Wi-Fi.
           </p>
         </div>
         <div class="video-container">
@@ -245,7 +268,7 @@
     <!-- System Integration -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h3 class="title is-3">System Integration and Architecture</h3>
+        <h3 class="title is-3" id="hw-architecture">System Integration and Architecture</h3>
         <div class="video-container">
           <video class="video-player" playsinline controls autoplay muted loop preload="auto">
             <source src="./static/video/optimized/integrated_show.mp4" type="video/mp4" />
@@ -263,8 +286,14 @@
     <!-- Dual-Mode Mechanisms -->
     <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
       <div class="column is-four-fifths">
-        <h3 class="title is-3">Reconfigurable Dual-Mode Suction Mechanisms</h3>
-        <img src="./static/images/image/FigDualMode.png" alt="Dual-Mode Suction Mechanisms" style="width:100%;" />
+        <h3 class="title is-3" id="hw-dualmode">Reconfigurable Dual-Mode Suction Mechanisms</h3>
+        <div style="position: relative; cursor: pointer; overflow: hidden; border-radius: 8px;">
+          <img id="dualModeImg" src="./static/images/image/FigDualMode.png" alt="Dual-Mode Suction Mechanisms" style="width:100%; display: block; transition: opacity 0.3s ease;" />
+          <img id="dualModeImgHover" src="./static/images/image/ResCupsSim.png" alt="CFD Simulation Results" style="width:100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.3s ease;" />
+        </div>
+        <p id="dualModeCaption" style="margin-top: 15px; text-align: center; font-size: 0.9rem; color: #666; min-height: 40px;">
+          Mechanical configurations: vacuum (left) and Bernoulli (right) suction mechanisms
+        </p>
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
             FlexiCup supports both vacuum and Bernoulli suction modes through modular mechanical configurations. Vacuum mode provides strong adhesion for rigid objects, while Bernoulli mode enables contactless levitation and gentle manipulation of delicate items. Four modular bottom configurations accommodate diverse object geometries.
@@ -276,7 +305,7 @@
     <!-- Vision-Tactile Sensing -->
     <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
       <div class="column is-four-fifths">
-        <h3 class="title is-3">Vision-Tactile Sensing System</h3>
+        <h3 class="title is-3" id="hw-sensing">Vision-Tactile Sensing System</h3>
         <div class="video-container">
           <video class="video-player" playsinline controls autoplay muted loop preload="auto">
             <source src="./static/video/optimized/multimodal_performance.mp4" type="video/mp4" />
@@ -321,8 +350,280 @@
   </div>
 </section>
 
+<!-- System Characterization Section -->
+<section id="characterization" class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2 section-title">System Characterization</h2>
+
+    <!-- Sensor-Based Force Characterization -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3" id="char-force">Sensor-Based Force Characterization</h3>
+        <div class="content has-text-justified" style="margin-bottom: 30px;">
+          <p>
+            To provide rigorous validation of suction force capabilities, we conducted comprehensive force measurements using a calibrated 6-axis force/torque sensor. Automated normal pull-off and tangential drag tests were performed on a flat acrylic surface at -80 kPa vacuum pressure, with 20 trials for each test to ensure statistical reliability.
+          </p>
+        </div>
+
+        <img src="./static/images/image/FigForceTest.png" alt="Sensor-Based Force Characterization" style="width:100%; margin-bottom: 30px;" />
+        <p style="margin-bottom: 30px; text-align: center; font-style: italic;">
+          Force profiles over 20 trials: normal force (pull-off test) and tangential force (horizontal drag test) at -80 kPa. Inset shows experimental setup with FlexiCup and 6-axis force/torque sensor.
+        </p>
+
+        <div class="content has-text-justified" style="margin-top: 20px;">
+          <p>
+            <strong>Experimental Results:</strong> The measurements yielded a mean maximum normal force of 41.50 N and a mean maximum tangential (shear) force of 8.34 N. Compared to the theoretical baseline F = P × A using the nominal resting diameter of 23 mm (≈33.2 N), the measured normal force is higher, likely due to the compliance of the suction cup increasing the effective sealing area under vacuum. The force profiles also capture transient behaviors during attachment and detachment, providing comprehensive characterization of dynamic force characteristics including repeatability and surface dependency.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Non-Contact Verification: Wafer Pick-up Comparison -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3" id="char-wafer">Wafer Pick-up Comparison</h3>
+        <div class="content has-text-justified" style="margin-bottom: 20px;">
+          <p>
+            To directly verify non-contact handling capability, we conducted a wafer pick-up experiment comparing vacuum and Bernoulli suction modes. The experiment demonstrates that Bernoulli suction maintains near-zero contact force during lifting, while vacuum suction requires physical contact to establish a seal.
+          </p>
+        </div>
+
+        <!-- Two-Column Video Layout -->
+        <div class="columns" style="margin-top: 20px;">
+          <!-- Bernoulli Video -->
+          <div class="column is-half">
+            <div style="padding: 0 10px;">
+              <h4 class="title is-4 has-text-centered">Bernoulli (Non-Contact)</h4>
+              <div class="video-container">
+                <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                  <source src="./static/video/optimized/Wafer_Bernoulli.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vacuum Video -->
+          <div class="column is-half">
+            <div style="padding: 0 10px;">
+              <h4 class="title is-4 has-text-centered">Vacuum (Contact Required)</h4>
+              <div class="video-container">
+                <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                  <source src="./static/video/optimized/Wafer_Vaccum.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Images in 1x2 Layout -->
+        <div class="columns" style="margin-top: 30px;">
+          <!-- Before/After Comparison -->
+          <div class="column is-half">
+            <div style="padding: 0 10px;">
+              <img src="./static/images/image/ResWaferCompare.png" alt="Wafer Pick-up Comparison" style="width:100%;" />
+              <p style="margin-top: 10px; text-align: center; font-size: 0.9rem; color: #666;">
+                Before/after: Vacuum (smudge) vs. Bernoulli (clean)
+              </p>
+            </div>
+          </div>
+
+          <!-- Force Measurement -->
+          <div class="column is-half">
+            <div style="padding: 0 10px;">
+              <img src="./static/images/image/ResWaferForce.png" alt="Force Measurement" style="width:100%;" />
+              <p style="margin-top: 10px; text-align: center; font-size: 0.9rem; color: #666;">
+                Vertical force F<sub>z</sub>: Bernoulli (near-zero) vs. Vacuum (~3.5N)
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content has-text-justified" style="margin-top: 20px;">
+          <p>
+            <strong>Key Findings:</strong> The Bernoulli configuration achieves non-contact handling: (1) clean wafer surface after manipulation, (2) near-zero force measurements, and (3) visible gap maintained in side-view footage.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dynamic Performance Demonstration -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3" id="char-dynamic">Dynamic Performance at Realistic Speed</h3>
+        <div class="content has-text-justified" style="margin-bottom: 20px;">
+          <p>
+            To evaluate real-time performance and dynamic robustness, we conducted stress tests at realistic motion speeds. After establishing suction, the robot performs fast motions (joint speed = 3.0 rad/s, joint acceleration = 3.0 rad/s²) while holding objects. The demonstrations include holding an orange and a water-filled bottle. The water sloshing in the bottle causes significant mass distribution and center-of-mass changes during motion, yet the suction grasp remains stable. The sensing stream also remains stable with no degradation of image quality.
+          </p>
+        </div>
+
+        <!-- Two-Column Video Layout for Dynamic Performance -->
+        <div class="columns" style="margin-top: 20px;">
+          <!-- Orange Holding -->
+          <div class="column is-half">
+            <div style="padding: 0 10px;">
+              <h4 class="title is-4 has-text-centered">Holding Orange</h4>
+              <div class="video-container">
+                <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                  <source src="./static/video/optimized/Move_Orange.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+          </div>
+
+          <!-- Water Bottle Holding -->
+          <div class="column is-half">
+            <div style="padding: 0 10px;">
+              <h4 class="title is-4 has-text-centered">Holding Water-Filled Bottle</h4>
+              <div class="video-container">
+                <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                  <source src="./static/video/optimized/Move_Bottle.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content has-text-justified" style="margin-top: 20px;">
+          <p>
+            <strong>Key Observations:</strong> (1) Stable grasp maintained during fast robot motions, (2) Water sloshing demonstrates robustness to dynamic mass redistribution, (3) Consistent sensing performance with no image degradation or modality switching issues.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Applications Section -->
+<section id="applications" class="section" style="background-color: #fafafa;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2 section-title">Applications</h2>
+
+    <!-- Modular Perception-Driven Grasping -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3" id="app-modular">Modular Perception-Driven Grasping</h3>
+        <img src="./static/images/image/FigExperimentSetup2.png" alt="Experimental Setup and Framework" style="width:100%; margin-bottom: 30px;" />
+        <div class="video-container">
+          <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+            <source src="./static/video/optimized/modular_task.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="content has-text-justified" style="margin-top: 20px;">
+          <p>
+            The modular control framework demonstrates threshold-based perception-driven grasping with dual-mode suction mechanisms. Experimental evaluation on LEGO board manipulation tasks shows vacuum mode achieving 90.0% success rate and Bernoulli mode achieving 86.7% success rate. The system successfully handles object localization, obstacle detection, surface alignment, and contact confirmation through visuotactile sensing.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- End-to-End Contact-Aware Manipulation -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3" id="app-learning">End-to-End Contact-Aware Manipulation</h3>
+        
+        <!-- Learning Framework -->
+        <img src="./static/images/image/FigFramework.png" alt="Learning Framework" style="width:100%;" />
+        <div class="content has-text-justified" style="margin-top: 20px;">
+          <p>
+            The diffusion policy network processes multiscale observations from workspace and dual-zone suction cameras through parallel ResNet-18 encoders. A multihead attention mechanism enables interaction between peripheral and central features, integrating visuotactile information for contact-aware manipulation. The unified framework outputs robot pose, illumination control, and valve state commands.
+          </p>
+        </div>
+
+        <!-- Task Demonstrations Flowchart -->
+        <img src="./static/images/image/FigTaskRollouts.png" alt="Task Demonstrations Flowchart" style="width:100%; margin-top: 40px; margin-bottom: 40px;" />
+
+        <!-- Two-Column Task Layout -->
+        <div class="columns" style="margin-top: 20px;">
+          <!-- Inclined Transport Task -->
+          <div class="column is-half">
+            <div style="padding: 0 20px;">
+              <h4 class="title is-4 has-text-centered">Inclined Transport Task</h4>
+              <div class="video-container">
+                <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                  <source src="./static/video/optimized/dptask1.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div class="content has-text-justified" style="margin-top: 20px;">
+                <p>
+                  The inclined transport task demonstrates six-stage manipulation: workspace observation for initial localization, suction camera-guided search, approach and alignment using peripheral vision, inclined transport with tactile contact detection, contact confirmation through central zone sensing, and final object lifting. The system achieves 73.3% success rate with multihead attention mechanism improving performance by 13% compared to baseline approaches.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Orange Extraction Task -->
+          <div class="column is-half">
+            <div style="padding: 0 20px;">
+              <h4 class="title is-4 has-text-centered">Orange Extraction Task</h4>
+              <div class="video-container">
+                <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                  <source src="./static/video/optimized/dptask2.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div class="content has-text-justified" style="margin-top: 20px;">
+                <p>
+                  The orange extraction task involves lid removal, re-alignment, and tactile-guided grasping of deformable objects from containers. The system achieves 66.7% success rate, demonstrating the effectiveness of integrating multimodal sensing with learned control for contact-aware manipulation of compliant objects. Ablation studies confirm that central zone sensing is essential for contact detection while attention mechanisms significantly enhance feature coordination.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Baseline Comparison with BC-RNN -->
+        <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid #ddd;">
+          <h4 class="title is-4 has-text-centered">Baseline Comparison: BC-RNN vs. Diffusion Policy</h4>
+          <div class="content has-text-justified" style="margin-bottom: 30px;">
+            <p>
+              To evaluate the effectiveness of the diffusion policy approach, we implemented a BC-RNN (Behavioral Cloning with RNN) baseline using the same multimodal observations and training data. The BC-RNN baseline consistently failed to complete both tasks, typically getting stuck near the target objects without progressing to successful manipulation. This demonstrates the advantage of diffusion policies for complex contact-aware manipulation tasks.
+            </p>
+          </div>
+
+          <!-- Two-Column Baseline Comparison -->
+          <div class="columns" style="margin-top: 20px;">
+            <!-- Baseline 1: Inclined Transport -->
+            <div class="column is-half">
+              <div style="padding: 0 20px;">
+                <h5 class="title is-5 has-text-centered">BC-RNN: Inclined Transport (Failed)</h5>
+                <div class="video-container">
+                  <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                    <source src="./static/video/optimized/baseline1.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <p style="margin-top: 15px; text-align: center; color: #666; font-size: 0.9rem;">
+                  BC-RNN fails to complete inclined transport, getting stuck near the object
+                </p>
+              </div>
+            </div>
+
+            <!-- Baseline 2: Orange Extraction -->
+            <div class="column is-half">
+              <div style="padding: 0 20px;">
+                <h5 class="title is-5 has-text-centered">BC-RNN: Orange Extraction (Failed)</h5>
+                <div class="video-container">
+                  <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                    <source src="./static/video/optimized/baseline2.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <p style="margin-top: 15px; text-align: center; color: #666; font-size: 0.9rem;">
+                  BC-RNN fails to complete orange extraction, unable to progress beyond initial approach
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="content has-text-justified" style="margin-top: 30px;">
+            <p>
+              <strong>Key Findings:</strong> The BC-RNN baseline's inability to complete either task highlights the complexity of contact-aware manipulation and validates the choice of diffusion policy for handling the multimodal sensory inputs and sequential decision-making required for successful suction-based manipulation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Modular Perception-Driven Grasping Section -->
-<section id="modular" class="section">
+<section id="modular" class="section" style="display: none;">
   <div class="container is-max-desktop">
     <h2 class="title is-2 section-title">Modular Perception-Driven Grasping</h2>
 
@@ -345,7 +646,7 @@
 </section>
 
 <!-- End-to-End Learning Section -->
-<section id="learning" class="section" style="background-color: #fafafa;">
+<section id="learning" class="section" style="background-color: #fafafa; display: none;">
   <div class="container is-max-desktop">
     <h2 class="title is-2 section-title">End-to-End Contact-Aware Manipulation</h2>
 
