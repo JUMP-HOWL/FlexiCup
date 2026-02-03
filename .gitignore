@@ -2,15 +2,6 @@
 .idea
 .sh
 
-# Large files (>50MB)
+# Large files
 ffmpeg-static
-*.STEP
 *_original.mp4
-
-# Large files (>50MB)
-ffmpeg-static
-Hardware/CAD/FlexiCup_Vacuum.STEP
-Hardware/CAD/FlexiCup_Bernoulli .STEP
-
-# Video optimization temporary files
-static/video/websitevideo/*_original.mp4
