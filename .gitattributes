@@ -1,6 +1,6 @@
 *.pdf filter=lfs diff=lfs merge=lfs -text
-*.mp4 filter=lfs diff=lfs merge=lfs -text
 *.STEP filter=lfs diff=lfs merge=lfs -text
 ffmpeg-static filter=lfs diff=lfs merge=lfs -text
+static/video/websitevideo/*.mp4 filter=lfs diff=lfs merge=lfs -text
 Hardware/CAD/FlexiCup_Vacuum.STEP filter=lfs diff=lfs merge=lfs -text
 Hardware/CAD/FlexiCup_Bernoulli[[:space:]].STEP filter=lfs diff=lfs merge=lfs -text
