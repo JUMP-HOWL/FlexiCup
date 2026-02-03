@@ -163,7 +163,6 @@
       // Side navigation - simple jump functionality only
       // No active state tracking needed, just smooth scrolling
     });
-    });
   </script>
 </head>
 <body>
@@ -174,8 +173,8 @@
   
   <a href="#hardware" class="main-link">Hardware Design</a>
   <a href="#hw-architecture" class="sub-link">System Architecture</a>
-  <a href="#hw-dualmode" class="sub-link">Dual-Mode Mechanisms</a>
   <a href="#hw-sensing" class="sub-link">Vision-Tactile Sensing</a>
+  <a href="#hw-dualmode" class="sub-link">Dual-Mode Mechanisms</a>
   
   <a href="#characterization" class="main-link">System Characterization</a>
   <a href="#char-force" class="sub-link">Force Characterization</a>
@@ -283,25 +282,6 @@
       </div>
     </div>
 
-    <!-- Dual-Mode Mechanisms -->
-    <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
-      <div class="column is-four-fifths">
-        <h3 class="title is-3" id="hw-dualmode">Reconfigurable Dual-Mode Suction Mechanisms</h3>
-        <div style="position: relative; cursor: pointer; overflow: hidden; border-radius: 8px;">
-          <img id="dualModeImg" src="./static/images/image/FigDualMode.png" alt="Dual-Mode Suction Mechanisms" style="width:100%; display: block; transition: opacity 0.3s ease;" />
-          <img id="dualModeImgHover" src="./static/images/image/ResCupsSim.png" alt="CFD Simulation Results" style="width:100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.3s ease;" />
-        </div>
-        <p id="dualModeCaption" style="margin-top: 15px; text-align: center; font-size: 0.9rem; color: #666; min-height: 40px;">
-          Mechanical configurations: vacuum (left) and Bernoulli (right) suction mechanisms
-        </p>
-        <div class="content has-text-justified" style="margin-top: 20px;">
-          <p>
-            FlexiCup supports both vacuum and Bernoulli suction modes through modular mechanical configurations. Vacuum mode provides strong adhesion for rigid objects, while Bernoulli mode enables contactless levitation and gentle manipulation of delicate items. Four modular bottom configurations accommodate diverse object geometries.
-          </p>
-        </div>
-      </div>
-    </div>
-
     <!-- Vision-Tactile Sensing -->
     <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
       <div class="column is-four-fifths">
@@ -344,6 +324,25 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dual-Mode Mechanisms -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
+      <div class="column is-four-fifths">
+        <h3 class="title is-3" id="hw-dualmode">Reconfigurable Dual-Mode Suction Mechanisms</h3>
+        <div style="position: relative; cursor: pointer; overflow: hidden; border-radius: 8px;">
+          <img id="dualModeImg" src="./static/images/image/FigDualMode.png" alt="Dual-Mode Suction Mechanisms" style="width:100%; display: block; transition: opacity 0.3s ease;" />
+          <img id="dualModeImgHover" src="./static/images/image/ResCupsSim.png" alt="CFD Simulation Results" style="width:100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.3s ease;" />
+        </div>
+        <p id="dualModeCaption" style="margin-top: 15px; text-align: center; font-size: 0.9rem; color: #666; min-height: 40px;">
+          Mechanical configurations: vacuum (left) and Bernoulli (right) suction mechanisms
+        </p>
+        <div class="content has-text-justified" style="margin-top: 20px;">
+          <p>
+            FlexiCup supports both vacuum and Bernoulli suction modes through modular mechanical configurations. Vacuum mode provides strong adhesion for rigid objects, while Bernoulli mode enables contactless levitation and gentle manipulation of delicate items. Four modular bottom configurations accommodate diverse object geometries.
+          </p>
         </div>
       </div>
     </div>
