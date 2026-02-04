@@ -1,6 +1,6 @@
-# FlexiCup Hardware Design
+# FlexiCup Fabrication Design
 
-This directory contains the hardware design files for the FlexiCup system.
+This directory contains the fabrication design files for the FlexiCup system.
 
 ## Directory Structure
 

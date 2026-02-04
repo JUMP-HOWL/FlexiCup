@@ -1,12 +1,12 @@
 # FlexiCup: Wireless Multimodal Suction Cup with Dual-Zone Vision-Tactile Sensing
 
-This repository contains the complete project files for FlexiCup, including hardware designs, firmware code, and project documentation.
+This repository contains the complete project files for FlexiCup, including fabrication designs, firmware code, and project documentation.
 
 ## 📁 Repository Structure
 
 ```
 FlexiCup/
-├── Hardware/              # Hardware design files
+├── Fabrication/           # Fabrication design files
 │   ├── CAD/              # 3D CAD models and mechanical designs
 │   │   ├── FlexiCup_Vacuum.STEP          # Vacuum mode assembly (109MB)
 │   │   ├── FlexiCup_Bernoulli.STEP       # Bernoulli mode assembly (109MB)
@@ -23,7 +23,7 @@ FlexiCup/
 │       ├── FlexiCup_PCB_BOM.xlsx         # PCB Bill of Materials
 │       └── Gerber_PCB.zip                # Manufacturing files
 │
-├── Code/                  # Firmware source code
+├── Firmware/              # Firmware source code
 │   └── ESPCAM/           # ESP32S3 camera firmware
 │       ├── main/         # Main application code
 │       │   ├── inc/      # Header files
@@ -59,7 +59,7 @@ FlexiCup/
 
 ```
 
-## 🔧 Hardware Files
+## 🔧 Fabrication Files
 
 ### CAD Models (STEP Format)
 All mechanical designs are provided in STEP format for maximum compatibility:
@@ -95,7 +95,7 @@ Complete electronics design for the FlexiCup controller:
 ## 💻 Firmware Code
 
 ### ESP32S3 Camera Firmware
-Located in `Code/ESPCAM/`, built with ESP-IDF framework.
+Located in `Firmware/ESPCAM/`, built with ESP-IDF framework.
 
 **Main Features**:
 - **Camera Control** (`camera.c/h`): OV5640 camera configuration and image capture
@@ -111,7 +111,7 @@ Located in `Code/ESPCAM/`, built with ESP-IDF framework.
 
 ### Building the Firmware
 ```bash
-cd Code/ESPCAM
+cd Firmware/ESPCAM
 idf.py build
 idf.py flash
 ```
@@ -141,8 +141,8 @@ idf.py flash
 
 - **Research Paper**: `PDF/paper.pdf`
 - **Project Website**: `index.html` (view at https://jump-howl.github.io/FlexiCup/)
-- **Hardware README**: `Hardware/README.md`
-- **Firmware README**: `Code/README.md`
+- **Fabrication README**: `Fabrication/README.md`
+- **Firmware README**: `Firmware/README.md`
 
 ## 🎥 Video Demonstrations
 
@@ -156,15 +156,15 @@ Optimized videos are available in `static/video/optimized/`:
 
 ## 🚀 Getting Started
 
-### Hardware Assembly
-1. Review CAD models in `Hardware/CAD/`
-2. Fabricate PCB using files in `Hardware/PCB/`
+### Fabrication Assembly
+1. Review CAD models in `Fabrication/CAD/`
+2. Fabricate PCB using files in `Fabrication/PCB/`
 3. Follow BOM files for component sourcing
 4. Assemble according to CAD models
 
 ### Firmware Setup
 1. Install ESP-IDF framework
-2. Navigate to `Code/ESPCAM/`
+2. Navigate to `Firmware/ESPCAM/`
 3. Configure Wi-Fi settings in `main/src/wifiConnect.c`
 4. Build and flash firmware
 
