@@ -1,0 +1,148 @@
+defaults:
+  - task: valve_task
+  - _self_
+
+name: valve_policy
+
+# Global parameters
+horizon: 48
+n_obs_steps: 8
+n_action_steps: 24
+n_latency_steps: 0
+num_inference_steps: 100
+zarr_path: ${oc.env:DATASET_PATH,data/valve_task.zarr}
+fps: 30
+val_ratio: 0.1
+
+# Policy configuration with Cross Attention
+policy:
+  _target_: diffusion_policies.policy.diffusion_unet_hybrid_image_policy.DiffusionUnetHybridImagePolicy
+  
+  # Shape meta
+  shape_meta: ${task.shape_meta}
+  
+  # Noise scheduler
+  noise_scheduler:
+    _target_: diffusers.schedulers.scheduling_ddpm.DDPMScheduler
+    num_train_timesteps: 100
+    beta_schedule: squaredcos_cap_v2
+    clip_sample: True
+    prediction_type: epsilon
+  
+  # Basic parameters
+  horizon: ${horizon}
+  n_action_steps: ${n_action_steps}
+  n_obs_steps: ${n_obs_steps}
+  num_inference_steps: ${num_inference_steps}
+  
+  # ESP Cross Attention parameters
+  enable_esp_cross_attention: True
+  esp_feature_dim: 512
+  esp_num_heads: 8
+  esp_dropout: 0.1
+  
+  # Observation conditioning
+  obs_as_global_cond: True
+  
+  # Network architecture
+  diffusion_step_embed_dim: 256
+  down_dims: [256, 512, 1024]
+  kernel_size: 5
+  n_groups: 8
+  condition_type: film
+  
+  # Encoder configuration
+  obs_encoder_group_norm: False
+  eval_fixed_crop: True
+  crop_shape: [76, 76]
+  
+  # Depth configuration (not used for valve task)
+  use_depth: False
+  use_depth_only: False
+
+# EMA configuration
+ema:
+  _target_: diffusion_policies.model_dp_umi.diffusion.ema_model.EMAModel
+  update_after_step: 0
+  inv_gamma: 1.0
+  power: 0.75
+  min_value: 0.0
+  max_value: 0.9999
+
+# Dataloader configuration
+dataloader:
+  batch_size: 16
+  num_workers: 2
+  shuffle: True
+  pin_memory: True
+  persistent_workers: True
+
+# Validation dataloader
+val_dataloader:
+  batch_size: 16
+  num_workers: 2
+  shuffle: False
+  pin_memory: True
+  persistent_workers: True
+
+# Optimizer configuration
+optimizer:
+  _target_: torch.optim.AdamW
+  lr: 1.0e-4
+  betas: [0.95, 0.999]
+  eps: 1.0e-8
+  weight_decay: 1.0e-6
+
+# Training configuration
+training:
+  device: cuda:0
+  seed: 42
+  debug: False
+  resume: True
+  lr_scheduler: cosine
+  lr_warmup_steps: 500
+  num_epochs: 3000
+  max_train_steps: null
+  max_val_steps: null
+  freeze_encoder: False
+  tqdm_interval_sec: 1.0
+  gradient_accumulate_every: 1
+  use_ema: True
+  rollout_every: 50
+  checkpoint_every: 50
+  val_every: 1
+  sample_every: 5
+
+# Logging configuration
+logging:
+  project: valve_task
+  resume: True
+  mode: online
+  name: ${now:%Y.%m.%d-%H.%M.%S}_${name}_${task.name}
+  id: null
+  group: null
+
+# Checkpoint configuration
+checkpoint:
+  topk:
+    monitor_key: val_loss
+    mode: min
+    k: 5
+    format_str: 'epoch={epoch:04d}-val_loss={val_loss:.3f}.ckpt'
+  save_last_ckpt: True
+  save_last_snapshot: False
+
+# Multi-GPU configuration
+multi_run:
+  run_dir: data/outputs/${now:%Y.%m.%d}/${now:%H.%M.%S}_${name}_${task.name}
+  wandb_name_base: ${now:%Y.%m.%d-%H.%M.%S}_${name}_${task.name}
+
+# Hydra configuration
+hydra:
+  job:
+    override_dirname: ${name}
+  run:
+    dir: data/outputs/${now:%Y.%m.%d}/${now:%H.%M.%S}_${name}_${task.name}
+  sweep:
+    dir: data/outputs/${now:%Y.%m.%d}/${now:%H.%M.%S}_${name}_${task.name}
+    subdir: ${hydra.job.num}

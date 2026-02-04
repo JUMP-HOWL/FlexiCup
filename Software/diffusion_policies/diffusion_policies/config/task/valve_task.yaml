@@ -1,0 +1,45 @@
+name: valve_task
+
+# Dataset configuration
+dataset:
+  _target_: diffusion_policies.dataset.valve_task_dataset.ValveTaskDataset
+  zarr_path: ${zarr_path}
+  horizon: ${horizon}
+  pad_before: ${eval:'${n_obs_steps}-1'}
+  pad_after: ${eval:'${n_action_steps}-1'}
+  seed: 42
+  val_ratio: ${val_ratio}
+  max_train_episodes: null
+
+# Shape meta (ensure ESP cameras are included)
+shape_meta:
+  obs:
+    esp_a_image:
+      shape: [3, 224, 224]
+      type: rgb
+    esp_b_image:
+      shape: [3, 224, 224]
+      type: rgb
+    d435_image:
+      shape: [3, 224, 224]
+      type: rgb
+    agent_pos:
+      shape: [8]
+      type: low_dim
+  action:
+    shape: [8]
+
+# Environment runner configuration
+env_runner:
+  _target_: diffusion_policies.env_runner.blank_runner.BlankRunner
+  fps: ${fps}
+  n_obs_steps: ${n_obs_steps}
+  n_action_steps: ${n_action_steps}
+  action_dim: 8  # 6 joints + valve + LED
+  state_dim: 8    # robot state dimension
+  max_steps: 200
+  render_obs_key: d435_image
+
+# Task parameters
+fps: 30
+val_ratio: 0.1

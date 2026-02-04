@@ -1,48 +1,58 @@
 # FlexiCup: Wireless Multimodal Suction Cup with Dual-Zone Vision-Tactile Sensing
 
-This repository contains the complete project files for FlexiCup, including fabrication designs, firmware code, and project documentation.
+This repository contains the complete project files for FlexiCup, including hardware designs, firmware code, software algorithms, and project documentation.
 
 ## 📁 Repository Structure
 
 ```
 FlexiCup/
-├── Fabrication/           # Fabrication design files
-│   ├── CAD/              # 3D CAD models and mechanical designs
-│   │   ├── FlexiCup_Vacuum.STEP          # Vacuum mode assembly (109MB)
-│   │   ├── FlexiCup_Bernoulli.STEP       # Bernoulli mode assembly (109MB)
-│   │   ├── suction cup bottom I.STEP     # Bottom configuration I
-│   │   ├── suction cup bottom II.STEP    # Bottom configuration II
-│   │   ├── suction cup bottom III.STEP   # Bottom configuration III
-│   │   ├── suction cup bottom IV.STEP    # Bottom configuration IV
-│   │   ├── suction cup top.STEP          # Top assembly
-│   │   └── FlexiCup_CAD_BOM.xlsx        # CAD Bill of Materials
+├── Hardware/              # Hardware design and firmware
+│   ├── Fabrication/       # Physical hardware design files
+│   │   ├── CAD/          # 3D CAD models and mechanical designs
+│   │   │   ├── FlexiCup_Vacuum.STEP          # Vacuum mode assembly (109MB)
+│   │   │   ├── FlexiCup_Bernoulli.STEP       # Bernoulli mode assembly (109MB)
+│   │   │   ├── suction cup bottom I.STEP     # Bottom configuration I
+│   │   │   ├── suction cup bottom II.STEP    # Bottom configuration II
+│   │   │   ├── suction cup bottom III.STEP   # Bottom configuration III
+│   │   │   ├── suction cup bottom IV.STEP    # Bottom configuration IV
+│   │   │   ├── suction cup top.STEP          # Top assembly
+│   │   │   └── FlexiCup_CAD_BOM.xlsx        # CAD Bill of Materials
+│   │   │
+│   │   └── PCB/          # PCB design files
+│   │       ├── FlexiCup_Schematic.pdf        # Circuit schematic
+│   │       ├── FlexiCup_PCB.pdf              # PCB layout
+│   │       ├── FlexiCup_PCB_BOM.xlsx         # PCB Bill of Materials
+│   │       └── Gerber_PCB.zip                # Manufacturing files
 │   │
-│   └── PCB/              # PCB design files
-│       ├── FlexiCup_Schematic.pdf        # Circuit schematic
-│       ├── FlexiCup_PCB.pdf              # PCB layout
-│       ├── FlexiCup_PCB_BOM.xlsx         # PCB Bill of Materials
-│       └── Gerber_PCB.zip                # Manufacturing files
+│   └── Firmware/          # Embedded firmware code
+│       └── ESPCAM/       # ESP32S3 camera firmware
+│           ├── main/     # Main application code
+│           │   ├── inc/  # Header files
+│           │   │   ├── camera.h
+│           │   │   ├── httpServer.h
+│           │   │   ├── led.h
+│           │   │   └── wifiConnect.h
+│           │   ├── src/  # Source files
+│           │   │   ├── camera.c
+│           │   │   ├── httpServer.c
+│           │   │   ├── led.c
+│           │   │   └── wifiConnect.c
+│           │   ├── html/ # Web interface
+│           │   └── main.c # Main entry point
+│           │
+│           ├── managed_components/  # ESP32-Camera library
+│           ├── CMakeLists.txt
+│           ├── sdkconfig
+│           └── README.md
 │
-├── Firmware/              # Firmware source code
-│   └── ESPCAM/           # ESP32S3 camera firmware
-│       ├── main/         # Main application code
-│       │   ├── inc/      # Header files
-│       │   │   ├── camera.h
-│       │   │   ├── httpServer.h
-│       │   │   ├── led.h
-│       │   │   └── wifiConnect.h
-│       │   ├── src/      # Source files
-│       │   │   ├── camera.c
-│       │   │   ├── httpServer.c
-│       │   │   ├── led.c
-│       │   │   └── wifiConnect.c
-│       │   ├── html/     # Web interface
-│       │   └── main.c    # Main entry point
-│       │
-│       ├── managed_components/  # ESP32-Camera library
-│       ├── CMakeLists.txt
-│       ├── sdkconfig
-│       └── README.md
+├── Software/              # High-level software and algorithms
+│   └── diffusion_policies/ # Diffusion policy implementation
+│       ├── data_collect.py  # Data collection pipeline
+│       ├── train.py        # Training script
+│       ├── eval.py         # Evaluation script
+│       ├── deploy.py       # Deployment script
+│       ├── environment.yml # Conda environment
+│       └── README.md       # Software documentation
 │
 ├── PDF/                   # Documentation
 │   └── paper.pdf         # Research paper
@@ -59,9 +69,12 @@ FlexiCup/
 
 ```
 
-## 🔧 Fabrication Files
+## 🔧 Hardware Files
 
-### CAD Models (STEP Format)
+### Fabrication Design Files
+All mechanical and electronic designs are provided for complete system reproduction:
+
+**CAD Models (STEP Format)**
 All mechanical designs are provided in STEP format for maximum compatibility:
 
 - **Main Assemblies**:
@@ -77,7 +90,7 @@ All mechanical designs are provided in STEP format for maximum compatibility:
 - **Bill of Materials**:
   - `FlexiCup_CAD_BOM.xlsx`: Complete list of mechanical components
 
-### PCB Design Files
+**PCB Design Files**
 Complete electronics design for the FlexiCup controller:
 
 - **Schematic**: `FlexiCup_Schematic.pdf` - Circuit diagram
@@ -92,10 +105,10 @@ Complete electronics design for the FlexiCup controller:
 - Power management (3.7V LiPo battery)
 - Wireless charging circuit
 
-## 💻 Firmware Code
+### Firmware Code
 
-### ESP32S3 Camera Firmware
-Located in `Firmware/ESPCAM/`, built with ESP-IDF framework.
+**ESP32S3 Camera Firmware**
+Located in `Hardware/Firmware/ESPCAM/`, built with ESP-IDF framework.
 
 **Main Features**:
 - **Camera Control** (`camera.c/h`): OV5640 camera configuration and image capture
@@ -109,11 +122,38 @@ Located in `Firmware/ESPCAM/`, built with ESP-IDF framework.
 - Tactile Resolution: 60,248 pixels·cm⁻²
 - Power: 3.7V 300mAh LiPo battery
 
-### Building the Firmware
+**Building the Firmware**
 ```bash
-cd Firmware/ESPCAM
+cd Hardware/Firmware/ESPCAM
 idf.py build
 idf.py flash
+```
+
+## 💻 Software
+
+### Diffusion Policy Implementation
+Located in `Software/diffusion_policies/`, this contains the complete machine learning pipeline for contact-aware manipulation.
+
+**Main Components**:
+- **Data Collection** (`data_collect.py`): Automated data collection pipeline for demonstration gathering
+- **Training** (`train.py`): Diffusion policy training with multimodal observations
+- **Evaluation** (`eval.py`): Performance evaluation and testing scripts
+- **Deployment** (`deploy.py`): Real-time deployment for robot control
+- **Environment** (`environment.yml`): Conda environment with all dependencies
+
+**Key Features**:
+- Multimodal fusion of vision and tactile data
+- Diffusion-based policy learning
+- Real-time inference for robot control
+- Support for dual-zone sensing integration
+- Contact-aware manipulation capabilities
+
+**Setup and Usage**
+```bash
+cd Software/diffusion_policies
+conda env create -f environment.yml
+conda activate flexicup
+python train.py --config configs/flexicup_config.yaml
 ```
 
 ## 📊 System Specifications
@@ -141,8 +181,8 @@ idf.py flash
 
 - **Research Paper**: `PDF/paper.pdf`
 - **Project Website**: `index.html` (view at https://jump-howl.github.io/FlexiCup/)
-- **Fabrication README**: `Fabrication/README.md`
-- **Firmware README**: `Firmware/README.md`
+- **Hardware README**: `Hardware/README.md`
+- **Software README**: `Software/diffusion_policies/README.md`
 
 ## 🎥 Video Demonstrations
 
@@ -156,23 +196,35 @@ Optimized videos are available in `static/video/optimized/`:
 
 ## 🚀 Getting Started
 
-### Fabrication Assembly
-1. Review CAD models in `Fabrication/CAD/`
-2. Fabricate PCB using files in `Fabrication/PCB/`
+### Hardware Assembly
+1. Review CAD models in `Hardware/Fabrication/CAD/`
+2. Fabricate PCB using files in `Hardware/Fabrication/PCB/`
 3. Follow BOM files for component sourcing
 4. Assemble according to CAD models
 
 ### Firmware Setup
 1. Install ESP-IDF framework
-2. Navigate to `Firmware/ESPCAM/`
+2. Navigate to `Hardware/Firmware/ESPCAM/`
 3. Configure Wi-Fi settings in `main/src/wifiConnect.c`
 4. Build and flash firmware
+
+### Software Setup
+1. Set up the diffusion policy environment:
+   ```bash
+   cd Software/diffusion_policies
+   conda env create -f environment.yml
+   conda activate flexicup
+   ```
+2. Collect training data or use provided datasets
+3. Train the diffusion policy model
+4. Deploy for real-time robot control
 
 ### Testing
 1. Power on the device
 2. Connect to FlexiCup Wi-Fi network
 3. Access web interface via browser
 4. Test vision and tactile sensing modes
+5. Run software algorithms for manipulation tasks
 
 ## 📝 Citation
 

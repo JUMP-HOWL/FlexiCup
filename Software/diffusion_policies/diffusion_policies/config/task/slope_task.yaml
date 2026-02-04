@@ -1,0 +1,39 @@
+name: slope_task
+
+# Dataset configuration
+dataset:
+  _target_: diffusion_policies.dataset.valve_task_dataset.ValveTaskDataset
+  shape_meta: ${shape_meta}
+  zarr_path: ${zarr_path}
+  horizon: ${horizon}
+  pad_before: ${eval:'${n_obs_steps}-1'}
+  pad_after: ${eval:'${n_action_steps}-1'}
+  seed: 42
+  val_ratio: ${val_ratio}
+  max_train_episodes: null
+
+# Shape meta
+shape_meta:
+  obs:
+    esp_a_image:
+      shape: [3, 224, 224]
+      type: rgb
+    esp_b_image:
+      shape: [3, 224, 224]
+      type: rgb
+    d435_image:
+      shape: [3, 224, 224]
+      type: rgb
+    agent_pos:
+      shape: [8]
+      type: low_dim
+  action:
+    shape: [8]
+
+# Environment runner configuration
+env_runner:
+  _target_: diffusion_policies.env_runner.blank_runner.BlankRunner
+
+# Task parameters
+fps: 30
+val_ratio: 0.1
