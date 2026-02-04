@@ -178,7 +178,7 @@
   
   <a href="#characterization" class="main-link">System Characterization</a>
   <a href="#char-force" class="sub-link">Force Characterization</a>
-  <a href="#char-wafer" class="sub-link">Wafer Pick-up</a>
+  <a href="#char-wafer" class="sub-link">Non-Contact Verification</a>
   <a href="#char-dynamic" class="sub-link">Dynamic Performance</a>
   
   <a href="#applications" class="main-link">Applications</a>
@@ -365,8 +365,8 @@
         </div>
 
         <img src="./static/images/image/FigForceTest.png" alt="Sensor-Based Force Characterization" style="width:100%; margin-bottom: 30px;" />
-        <p style="margin-bottom: 30px; text-align: center; font-style: italic;">
-          Force profiles over 20 trials: normal force (pull-off test) and tangential force (horizontal drag test) at -80 kPa. Inset shows experimental setup with FlexiCup and 6-axis force/torque sensor.
+        <p style="margin-bottom: 30px; text-align: center; font-style: italic; color: #555;">
+          Force measurements at -80 kPa: normal force (pull-off) and tangential force (drag) averaged over 20 trials. Inset: experimental setup with 6-axis force/torque sensor.
         </p>
 
         <div class="content has-text-justified" style="margin-top: 20px;">
@@ -380,7 +380,7 @@
     <!-- Non-Contact Verification: Wafer Pick-up Comparison -->
     <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
       <div class="column is-four-fifths">
-        <h3 class="title is-3" id="char-wafer">Wafer Pick-up Comparison</h3>
+        <h3 class="title is-3" id="char-wafer">Non-Contact Verification: Wafer Handling</h3>
         <div class="content has-text-justified" style="margin-bottom: 20px;">
           <p>
             To directly verify non-contact handling capability, we conducted wafer pick-up experiments comparing vacuum and Bernoulli suction modes. Results demonstrate that Bernoulli suction maintains near-zero contact force during lifting, while vacuum suction requires physical contact to establish a seal.
@@ -392,7 +392,7 @@
           <!-- Bernoulli Video -->
           <div class="column is-half">
             <div style="padding: 0 10px;">
-              <h4 class="title is-4 has-text-centered">Bernoulli (Non-Contact)</h4>
+              <h4 class="title is-4 has-text-centered">Bernoulli Mode (Non-Contact)</h4>
               <div class="video-container">
                 <video class="video-player" playsinline controls autoplay muted loop preload="auto">
                   <source src="./static/video/optimized/Wafer_Bernoulli.mp4" type="video/mp4" />
@@ -404,7 +404,7 @@
           <!-- Vacuum Video -->
           <div class="column is-half">
             <div style="padding: 0 10px;">
-              <h4 class="title is-4 has-text-centered">Vacuum (Contact Required)</h4>
+              <h4 class="title is-4 has-text-centered">Vacuum Mode (Contact Required)</h4>
               <div class="video-container">
                 <video class="video-player" playsinline controls autoplay muted loop preload="auto">
                   <source src="./static/video/optimized/Wafer_Vaccum.mp4" type="video/mp4" />
@@ -421,7 +421,7 @@
             <div style="padding: 0 10px;">
               <img src="./static/images/image/ResWaferCompare.png" alt="Wafer Pick-up Comparison" style="width:100%;" />
               <p style="margin-top: 10px; text-align: center; font-size: 0.9rem; color: #666;">
-                Before/after: Vacuum (smudge) vs. Bernoulli (clean)
+                Surface condition after manipulation: vacuum leaves contact marks, Bernoulli maintains clean surface
               </p>
             </div>
           </div>
@@ -431,7 +431,7 @@
             <div style="padding: 0 10px;">
               <img src="./static/images/image/ResWaferForce.png" alt="Force Measurement" style="width:100%;" />
               <p style="margin-top: 10px; text-align: center; font-size: 0.9rem; color: #666;">
-                Vertical force F<sub>z</sub>: Bernoulli (near-zero) vs. Vacuum (~3.5N)
+                Measured vertical force: Bernoulli ≈0N (non-contact), Vacuum ≈3.5N (contact required)
               </p>
             </div>
           </div>
@@ -439,7 +439,7 @@
 
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            <strong>Key Findings:</strong> Bernoulli configuration achieves non-contact handling through: (1) clean wafer surface after manipulation, (2) near-zero force measurements, and (3) visible air gap maintained throughout lifting.
+            The Bernoulli configuration successfully achieves non-contact handling, evidenced by clean wafer surfaces post-manipulation, near-zero force measurements, and visible air gap maintained throughout the lifting process.
           </p>
         </div>
       </div>
@@ -448,7 +448,7 @@
     <!-- Dynamic Performance Demonstration -->
     <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
       <div class="column is-four-fifths">
-        <h3 class="title is-3" id="char-dynamic">Dynamic Performance at Realistic Speed</h3>
+        <h3 class="title is-3" id="char-dynamic">Dynamic Performance Evaluation</h3>
         <div class="content has-text-justified" style="margin-bottom: 20px;">
           <p>
             To evaluate real-time performance and dynamic robustness, we conducted stress tests at realistic motion speeds. After establishing suction, the robot performs fast motions (joint speed = 3.0 rad/s, acceleration = 3.0 rad/s²) while holding objects. Demonstrations include an orange and a water-filled bottle, where water sloshing causes significant mass distribution changes, yet the suction grasp remains stable with no sensing degradation.
@@ -460,7 +460,7 @@
           <!-- Orange Holding -->
           <div class="column is-half">
             <div style="padding: 0 10px;">
-              <h4 class="title is-4 has-text-centered">Holding Orange</h4>
+              <h4 class="title is-4 has-text-centered">Fast Motion with Orange</h4>
               <div class="video-container">
                 <video class="video-player" playsinline controls autoplay muted loop preload="auto">
                   <source src="./static/video/optimized/Move_Orange.mp4" type="video/mp4" />
@@ -472,7 +472,7 @@
           <!-- Water Bottle Holding -->
           <div class="column is-half">
             <div style="padding: 0 10px;">
-              <h4 class="title is-4 has-text-centered">Holding Water-Filled Bottle</h4>
+              <h4 class="title is-4 has-text-centered">Fast Motion with Water Bottle</h4>
               <div class="video-container">
                 <video class="video-player" playsinline controls autoplay muted loop preload="auto">
                   <source src="./static/video/optimized/Move_Bottle.mp4" type="video/mp4" />
@@ -484,7 +484,7 @@
 
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            <strong>Key Observations:</strong> (1) Stable grasp maintained during fast motions, (2) Robustness to dynamic mass redistribution from water sloshing, (3) Consistent sensing performance without image degradation or modality switching issues.
+            The demonstrations confirm stable grasping during fast motions, robustness to dynamic mass redistribution from water sloshing, and consistent sensing performance without image degradation or modality switching issues.
           </p>
         </div>
       </div>
@@ -569,52 +569,33 @@
         </div>
         
         <!-- Baseline Comparison with BC-RNN -->
-        <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid #ddd;">
-          <h4 class="title is-4 has-text-centered">Baseline Comparison: BC-RNN vs. Diffusion Policy</h4>
-          <div class="content has-text-justified" style="margin-bottom: 30px;">
+        <div style="margin-top: 50px; padding: 30px; background-color: #f8f9fa; border-radius: 10px; border-left: 4px solid #3273dc;">
+          <h4 class="title is-5" style="margin-bottom: 20px; color: #3273dc;">Comparison with Non-Diffusion Baseline</h4>
+          <div class="content has-text-justified" style="margin-bottom: 25px;">
             <p>
-              To evaluate diffusion policy effectiveness, we implemented a BC-RNN (Behavioral Cloning with RNN) baseline using identical multimodal observations and training data. The BC-RNN baseline consistently failed both tasks, typically getting stuck near target objects without progressing to successful manipulation. This demonstrates the advantage of diffusion policies for complex contact-aware manipulation tasks.
+              To validate our approach, we compared against a BC-RNN (Behavioral Cloning with RNN) baseline trained on identical data. The BC-RNN consistently failed to complete manipulation tasks, demonstrating the advantage of diffusion policies for handling multimodal sensory inputs and complex sequential decision-making.
             </p>
           </div>
 
-          <!-- Two-Column Baseline Comparison -->
-          <div class="columns" style="margin-top: 20px;">
-            <!-- Baseline 1: Inclined Transport -->
+          <!-- Compact Two-Column Baseline Videos -->
+          <div class="columns is-mobile" style="margin-top: 15px;">
             <div class="column is-half">
-              <div style="padding: 0 20px;">
-                <h5 class="title is-5 has-text-centered">BC-RNN: Inclined Transport (Failed)</h5>
-                <div class="video-container">
-                  <video class="video-player" playsinline controls autoplay muted loop preload="auto">
-                    <source src="./static/video/optimized/baseline1.mp4" type="video/mp4" />
-                  </video>
-                </div>
-                <p style="margin-top: 15px; text-align: center; color: #666; font-size: 0.9rem;">
-                  BC-RNN fails to complete inclined transport, getting stuck near the object
-                </p>
-              </div>
+              <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; color: #555;">Inclined Transport (Failed)</p>
+              <video playsinline controls muted loop preload="auto" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <source src="./static/video/optimized/baseline1.mp4" type="video/mp4" />
+              </video>
             </div>
-
-            <!-- Baseline 2: Orange Extraction -->
             <div class="column is-half">
-              <div style="padding: 0 20px;">
-                <h5 class="title is-5 has-text-centered">BC-RNN: Orange Extraction (Failed)</h5>
-                <div class="video-container">
-                  <video class="video-player" playsinline controls autoplay muted loop preload="auto">
-                    <source src="./static/video/optimized/baseline2.mp4" type="video/mp4" />
-                  </video>
-                </div>
-                <p style="margin-top: 15px; text-align: center; color: #666; font-size: 0.9rem;">
-                  BC-RNN fails to complete orange extraction, unable to progress beyond initial approach
-                </p>
-              </div>
+              <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; color: #555;">Orange Extraction (Failed)</p>
+              <video playsinline controls muted loop preload="auto" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <source src="./static/video/optimized/baseline2.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
-
-          <div class="content has-text-justified" style="margin-top: 30px;">
-            <p>
-              <strong>Key Findings:</strong> BC-RNN's inability to complete either task highlights the complexity of contact-aware manipulation and validates the diffusion policy choice for handling multimodal sensory inputs and sequential decision-making in suction-based manipulation.
-            </p>
-          </div>
+          
+          <p style="margin-top: 20px; font-size: 0.9rem; color: #666; font-style: italic;">
+            BC-RNN baseline gets stuck near target objects without progressing to successful manipulation, highlighting the complexity of contact-aware suction tasks.
+          </p>
         </div>
       </div>
     </div>
