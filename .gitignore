@@ -1,6 +1,14 @@
 .DS_store
 .idea
-.sh
+
+# Development and testing files
+test_*.py
+test_*.html
+optimize_*.sh
+*_SUMMARY.md
+*_FIX.md
+*_UPDATE.md
+*_REORDER.md
 
 # Large files
 ffmpeg-static
