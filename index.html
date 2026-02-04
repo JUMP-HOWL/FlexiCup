@@ -246,7 +246,7 @@
         <img src="./static/images/image/FigCover.png" alt="FlexiCup System Overview" style="width:100%; margin-bottom: 30px;" />
         <div class="content has-text-justified" style="margin-bottom: 20px;">
           <p>
-            FlexiCup is a wireless multimodal suction cup that integrates dual-zone vision-tactile sensing. The central zone dynamically switches between vision and tactile modalities via illumination control for contact detection, while the peripheral zone provides continuous spatial awareness for approach planning. FlexiCup supports both vacuum and Bernoulli suction modes through modular mechanical configurations, achieving complete wireless autonomy with onboard computation and power. The system achieves maximum suction force of 34.3N with tactile resolution of 60,248 pixels·cm⁻², streaming 1024×768 images at 30Hz over Wi-Fi.
+            FlexiCup is a wireless multimodal suction cup featuring dual-zone vision-tactile sensing. The central zone dynamically switches between vision and tactile modalities through LED illumination control, enabling precise contact detection. The peripheral zone maintains continuous spatial awareness for approach planning. Supporting both vacuum and Bernoulli suction modes through modular configurations, FlexiCup achieves complete wireless autonomy with onboard computation and power. Key specifications include 41.5N maximum normal force, 60,248 pixels·cm⁻² tactile resolution, and 1024×768@30Hz video streaming over Wi-Fi.
           </p>
         </div>
         <div class="video-container">
@@ -275,7 +275,7 @@
         </div>
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            The system features modular component integration including airways, optical system (OV5640 camera with 180° fisheye lens), electronics (ESP32S3 controller), and mechanical assembly. Wireless charging configuration enables standalone operation with a 3.7V 300mAh lithium battery, supporting both tethered and wireless modes.
+            The system integrates modular components including pneumatic airways, optical system (OV5640 camera with 180° fisheye lens), electronics (ESP32S3 controller), and mechanical assembly. A wireless charging configuration enables standalone operation with a 3.7V 300mAh lithium battery, supporting both tethered and untethered modes for flexible deployment.
           </p>
         </div>
         <img src="./static/images/image/FigStructure.png" alt="System Architecture" style="width:100%; margin-top: 30px;" />
@@ -293,7 +293,7 @@
         </div>
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            A single 180° fisheye camera enables dynamic switching between environmental vision and precise tactile perception through LED illumination control. The dual-zone sensing system provides central zone switchable visuotactile sensing and peripheral zone continuous spatial awareness. Multimodal fusion achieves 100% recognition accuracy across diverse object categories, significantly outperforming vision-only (82.5%) and tactile-only (46.7%) approaches.
+            A single 180° fisheye camera enables dynamic switching between environmental vision and tactile perception through LED illumination control. The dual-zone architecture provides switchable visuotactile sensing in the central zone and continuous spatial awareness in the peripheral zone. This multimodal fusion achieves 100% object recognition accuracy, significantly outperforming vision-only (82.5%) and tactile-only (46.7%) approaches.
           </p>
         </div>
 
@@ -306,7 +306,7 @@
               <img src="./static/images/image/FigVisionTactile.png" alt="Vision-Tactile Sensing System" style="width:100%;" />
               <div class="content has-text-justified" style="margin-top: 15px;">
                 <p>
-                  The peripheral zone maintains environmental awareness through continuous vision across both modalities, while the central zone provides high-resolution tactile feedback through LED-controlled illumination switching. This architecture enables simultaneous spatial context understanding and precise contact detection.
+                  The peripheral zone maintains environmental awareness through continuous vision, while the central zone provides high-resolution tactile feedback via LED-controlled illumination switching. This architecture enables simultaneous spatial context understanding and precise contact detection for robust manipulation.
                 </p>
               </div>
             </div>
@@ -319,7 +319,7 @@
               <img src="./static/images/image/FigPDMS.png" alt="PDMS Membrane Design" style="width:100%;" />
               <div class="content has-text-justified" style="margin-top: 15px;">
                 <p>
-                  The membrane consists of a dual-layer system with PDMS base layer (30:1 ratio, 70°C×4h) providing mechanical compliance and semitransparent reflective layer (Ag:PDMS 100:1, 70°C×0.5h) enabling photometric tactile imaging. Four modular configurations (I-IV) support both vacuum (I-II) and Bernoulli (III-IV) operations, achieving adhesion force ranges from sub-Newton to over 30N.
+                  The membrane features a dual-layer design: a PDMS base layer (30:1 ratio, 70°C×4h) provides mechanical compliance, while a semitransparent reflective layer (Ag:PDMS 100:1, 70°C×0.5h) enables photometric tactile imaging. Four modular configurations (I-IV) support vacuum (I-II) and Bernoulli (III-IV) operations, achieving adhesion forces from sub-Newton to over 30N.
                 </p>
               </div>
             </div>
@@ -341,7 +341,7 @@
         </p>
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            FlexiCup supports both vacuum and Bernoulli suction modes through modular mechanical configurations. Vacuum mode provides strong adhesion for rigid objects, while Bernoulli mode enables contactless levitation and gentle manipulation of delicate items. Four modular bottom configurations accommodate diverse object geometries.
+            FlexiCup supports vacuum and Bernoulli suction modes through modular mechanical configurations. Vacuum mode provides strong adhesion for rigid objects, while Bernoulli mode enables contactless levitation for gentle manipulation of delicate items. Four modular bottom configurations accommodate diverse object geometries and manipulation requirements.
           </p>
         </div>
       </div>
@@ -360,7 +360,7 @@
         <h3 class="title is-3" id="char-force">Sensor-Based Force Characterization</h3>
         <div class="content has-text-justified" style="margin-bottom: 30px;">
           <p>
-            To provide rigorous validation of suction force capabilities, we conducted comprehensive force measurements using a calibrated 6-axis force/torque sensor. Automated normal pull-off and tangential drag tests were performed on a flat acrylic surface at -80 kPa vacuum pressure, with 20 trials for each test to ensure statistical reliability.
+            To rigorously validate suction force capabilities, we conducted comprehensive measurements using a calibrated 6-axis force/torque sensor. Automated normal pull-off and tangential drag tests were performed on a flat acrylic surface at -80 kPa vacuum pressure, with 20 trials per test ensuring statistical reliability.
           </p>
         </div>
 
@@ -371,7 +371,7 @@
 
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            <strong>Experimental Results:</strong> The measurements yielded a mean maximum normal force of 41.50 N and a mean maximum tangential (shear) force of 8.34 N. Compared to the theoretical baseline F = P × A using the nominal resting diameter of 23 mm (≈33.2 N), the measured normal force is higher, likely due to the compliance of the suction cup increasing the effective sealing area under vacuum. The force profiles also capture transient behaviors during attachment and detachment, providing comprehensive characterization of dynamic force characteristics including repeatability and surface dependency.
+            <strong>Results:</strong> Measurements yielded a mean maximum normal force of 41.50 N and tangential (shear) force of 8.34 N. Compared to the theoretical baseline F = P × A using nominal diameter 23 mm (≈33.2 N), the measured normal force is higher, likely due to suction cup compliance increasing the effective sealing area under vacuum. Force profiles capture transient behaviors during attachment and detachment, providing comprehensive characterization of dynamic force characteristics, repeatability, and surface dependency.
           </p>
         </div>
       </div>
@@ -383,7 +383,7 @@
         <h3 class="title is-3" id="char-wafer">Wafer Pick-up Comparison</h3>
         <div class="content has-text-justified" style="margin-bottom: 20px;">
           <p>
-            To directly verify non-contact handling capability, we conducted a wafer pick-up experiment comparing vacuum and Bernoulli suction modes. The experiment demonstrates that Bernoulli suction maintains near-zero contact force during lifting, while vacuum suction requires physical contact to establish a seal.
+            To directly verify non-contact handling capability, we conducted wafer pick-up experiments comparing vacuum and Bernoulli suction modes. Results demonstrate that Bernoulli suction maintains near-zero contact force during lifting, while vacuum suction requires physical contact to establish a seal.
           </p>
         </div>
 
@@ -439,7 +439,7 @@
 
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            <strong>Key Findings:</strong> The Bernoulli configuration achieves non-contact handling: (1) clean wafer surface after manipulation, (2) near-zero force measurements, and (3) visible gap maintained in side-view footage.
+            <strong>Key Findings:</strong> Bernoulli configuration achieves non-contact handling through: (1) clean wafer surface after manipulation, (2) near-zero force measurements, and (3) visible air gap maintained throughout lifting.
           </p>
         </div>
       </div>
@@ -451,7 +451,7 @@
         <h3 class="title is-3" id="char-dynamic">Dynamic Performance at Realistic Speed</h3>
         <div class="content has-text-justified" style="margin-bottom: 20px;">
           <p>
-            To evaluate real-time performance and dynamic robustness, we conducted stress tests at realistic motion speeds. After establishing suction, the robot performs fast motions (joint speed = 3.0 rad/s, joint acceleration = 3.0 rad/s²) while holding objects. The demonstrations include holding an orange and a water-filled bottle. The water sloshing in the bottle causes significant mass distribution and center-of-mass changes during motion, yet the suction grasp remains stable. The sensing stream also remains stable with no degradation of image quality.
+            To evaluate real-time performance and dynamic robustness, we conducted stress tests at realistic motion speeds. After establishing suction, the robot performs fast motions (joint speed = 3.0 rad/s, acceleration = 3.0 rad/s²) while holding objects. Demonstrations include an orange and a water-filled bottle, where water sloshing causes significant mass distribution changes, yet the suction grasp remains stable with no sensing degradation.
           </p>
         </div>
 
@@ -484,7 +484,7 @@
 
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            <strong>Key Observations:</strong> (1) Stable grasp maintained during fast robot motions, (2) Water sloshing demonstrates robustness to dynamic mass redistribution, (3) Consistent sensing performance with no image degradation or modality switching issues.
+            <strong>Key Observations:</strong> (1) Stable grasp maintained during fast motions, (2) Robustness to dynamic mass redistribution from water sloshing, (3) Consistent sensing performance without image degradation or modality switching issues.
           </p>
         </div>
       </div>
@@ -509,7 +509,7 @@
         </div>
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            The modular control framework demonstrates threshold-based perception-driven grasping with dual-mode suction mechanisms. Experimental evaluation on LEGO board manipulation tasks shows vacuum mode achieving 90.0% success rate and Bernoulli mode achieving 86.7% success rate. The system successfully handles object localization, obstacle detection, surface alignment, and contact confirmation through visuotactile sensing.
+            A modular control framework demonstrates threshold-based perception-driven grasping with dual-mode suction mechanisms. Experimental evaluation on LEGO board manipulation shows vacuum mode achieving 90.0% success rate and Bernoulli mode achieving 86.7% success rate. The system successfully handles object localization, obstacle detection, surface alignment, and contact confirmation through visuotactile sensing.
           </p>
         </div>
       </div>
@@ -524,7 +524,7 @@
         <img src="./static/images/image/FigFramework.png" alt="Learning Framework" style="width:100%;" />
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            The diffusion policy network processes multiscale observations from workspace and dual-zone suction cameras through parallel ResNet-18 encoders. A multihead attention mechanism enables interaction between peripheral and central features, integrating visuotactile information for contact-aware manipulation. The unified framework outputs robot pose, illumination control, and valve state commands.
+            A diffusion policy network processes multiscale observations from workspace and dual-zone suction cameras through parallel ResNet-18 encoders. A multihead attention mechanism enables interaction between peripheral and central features, integrating visuotactile information for contact-aware manipulation. The unified framework outputs robot pose, illumination control, and valve state commands.
           </p>
         </div>
 
@@ -544,7 +544,7 @@
               </div>
               <div class="content has-text-justified" style="margin-top: 20px;">
                 <p>
-                  The inclined transport task demonstrates six-stage manipulation: workspace observation for initial localization, suction camera-guided search, approach and alignment using peripheral vision, inclined transport with tactile contact detection, contact confirmation through central zone sensing, and final object lifting. The system achieves 73.3% success rate with multihead attention mechanism improving performance by 13% compared to baseline approaches.
+                  This task demonstrates six-stage manipulation: workspace observation for initial localization, suction camera-guided search, approach and alignment using peripheral vision, inclined transport with tactile contact detection, contact confirmation through central zone sensing, and final object lifting. The system achieves 73.3% success rate, with multihead attention improving performance by 13% over baseline approaches.
                 </p>
               </div>
             </div>
@@ -561,7 +561,7 @@
               </div>
               <div class="content has-text-justified" style="margin-top: 20px;">
                 <p>
-                  The orange extraction task involves lid removal, re-alignment, and tactile-guided grasping of deformable objects from containers. The system achieves 66.7% success rate, demonstrating the effectiveness of integrating multimodal sensing with learned control for contact-aware manipulation of compliant objects. Ablation studies confirm that central zone sensing is essential for contact detection while attention mechanisms significantly enhance feature coordination.
+                  This task involves lid removal, re-alignment, and tactile-guided grasping of deformable objects from containers. The system achieves 66.7% success rate, demonstrating effective integration of multimodal sensing with learned control for contact-aware manipulation of compliant objects. Ablation studies confirm central zone sensing is essential for contact detection, while attention mechanisms significantly enhance feature coordination.
                 </p>
               </div>
             </div>
@@ -573,7 +573,7 @@
           <h4 class="title is-4 has-text-centered">Baseline Comparison: BC-RNN vs. Diffusion Policy</h4>
           <div class="content has-text-justified" style="margin-bottom: 30px;">
             <p>
-              To evaluate the effectiveness of the diffusion policy approach, we implemented a BC-RNN (Behavioral Cloning with RNN) baseline using the same multimodal observations and training data. The BC-RNN baseline consistently failed to complete both tasks, typically getting stuck near the target objects without progressing to successful manipulation. This demonstrates the advantage of diffusion policies for complex contact-aware manipulation tasks.
+              To evaluate diffusion policy effectiveness, we implemented a BC-RNN (Behavioral Cloning with RNN) baseline using identical multimodal observations and training data. The BC-RNN baseline consistently failed both tasks, typically getting stuck near target objects without progressing to successful manipulation. This demonstrates the advantage of diffusion policies for complex contact-aware manipulation tasks.
             </p>
           </div>
 
@@ -612,94 +612,7 @@
 
           <div class="content has-text-justified" style="margin-top: 30px;">
             <p>
-              <strong>Key Findings:</strong> The BC-RNN baseline's inability to complete either task highlights the complexity of contact-aware manipulation and validates the choice of diffusion policy for handling the multimodal sensory inputs and sequential decision-making required for successful suction-based manipulation.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Modular Perception-Driven Grasping Section -->
-<section id="modular" class="section" style="display: none;">
-  <div class="container is-max-desktop">
-    <h2 class="title is-2 section-title">Modular Perception-Driven Grasping</h2>
-
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <img src="./static/images/image/FigExperimentSetup2.png" alt="Experimental Setup and Framework" style="width:100%; margin-bottom: 30px;" />
-        <div class="video-container">
-          <video class="video-player" playsinline controls autoplay muted loop preload="auto">
-            <source src="./static/video/optimized/modular_task.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <div class="content has-text-justified" style="margin-top: 20px;">
-          <p>
-            The modular control framework demonstrates threshold-based perception-driven grasping with dual-mode suction mechanisms. Experimental evaluation on LEGO board manipulation tasks shows vacuum mode achieving 90.0% success rate and Bernoulli mode achieving 86.7% success rate. The system successfully handles object localization, obstacle detection, surface alignment, and contact confirmation through visuotactile sensing.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- End-to-End Learning Section -->
-<section id="learning" class="section" style="background-color: #fafafa; display: none;">
-  <div class="container is-max-desktop">
-    <h2 class="title is-2 section-title">End-to-End Contact-Aware Manipulation</h2>
-
-    <!-- Learning Framework -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h3 class="title is-3">Multimodal Learning Framework</h3>
-        <img src="./static/images/image/FigFramework.png" alt="Learning Framework" style="width:100%;" />
-        <div class="content has-text-justified" style="margin-top: 20px;">
-          <p>
-            The diffusion policy network processes multiscale observations from workspace and dual-zone suction cameras through parallel ResNet-18 encoders. A multihead attention mechanism enables interaction between peripheral and central features, integrating visuotactile information for contact-aware manipulation. The unified framework outputs robot pose, illumination control, and valve state commands.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Task Demonstrations Flowchart -->
-    <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
-      <div class="column is-four-fifths">
-        <img src="./static/images/image/FigTaskRollouts.png" alt="Task Demonstrations Flowchart" style="width:100%; margin-bottom: 40px;" />
-      </div>
-    </div>
-
-    <!-- Two-Column Task Layout -->
-    <div class="columns" style="margin-top: 20px;">
-      <!-- Inclined Transport Task -->
-      <div class="column is-half">
-        <div style="padding: 0 20px;">
-          <h3 class="title is-3 has-text-centered">Inclined Transport Task</h3>
-          <div class="video-container">
-            <video class="video-player" playsinline controls autoplay muted loop preload="auto">
-              <source src="./static/video/optimized/dptask1.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="content has-text-justified" style="margin-top: 20px;">
-            <p>
-              The inclined transport task demonstrates six-stage manipulation: workspace observation for initial localization, suction camera-guided search, approach and alignment using peripheral vision, inclined transport with tactile contact detection, contact confirmation through central zone sensing, and final object lifting. The system achieves 73.3% success rate with multihead attention mechanism improving performance by 13% compared to baseline approaches.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Orange Extraction Task -->
-      <div class="column is-half">
-        <div style="padding: 0 20px;">
-          <h3 class="title is-3 has-text-centered">Orange Extraction Task</h3>
-          <div class="video-container">
-            <video class="video-player" playsinline controls autoplay muted loop preload="auto">
-              <source src="./static/video/optimized/dptask2.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="content has-text-justified" style="margin-top: 20px;">
-            <p>
-              The orange extraction task involves lid removal, re-alignment, and tactile-guided grasping of deformable objects from containers. The system achieves 66.7% success rate, demonstrating the effectiveness of integrating multimodal sensing with learned control for contact-aware manipulation of compliant objects. Ablation studies confirm that central zone sensing is essential for contact detection while attention mechanisms significantly enhance feature coordination.
+              <strong>Key Findings:</strong> BC-RNN's inability to complete either task highlights the complexity of contact-aware manipulation and validates the diffusion policy choice for handling multimodal sensory inputs and sequential decision-making in suction-based manipulation.
             </p>
           </div>
         </div>
