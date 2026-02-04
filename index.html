@@ -568,34 +568,30 @@
           </div>
         </div>
         
-        <!-- Baseline Comparison with BC-RNN -->
-        <div style="margin-top: 50px; padding: 30px; background-color: #f8f9fa; border-radius: 10px; border-left: 4px solid #3273dc;">
-          <h4 class="title is-5" style="margin-bottom: 20px; color: #3273dc;">Comparison with Non-Diffusion Baseline</h4>
-          <div class="content has-text-justified" style="margin-bottom: 25px;">
-            <p>
-              To validate our approach, we compared against a BC-RNN (Behavioral Cloning with RNN) baseline trained on identical data. The BC-RNN consistently failed to complete manipulation tasks, demonstrating the advantage of diffusion policies for handling multimodal sensory inputs and complex sequential decision-making.
-            </p>
-          </div>
+        <!-- Baseline Comparison -->
+        <div style="margin-top: 40px;">
+          <p class="content has-text-justified" style="margin-bottom: 20px;">
+            We also compared our diffusion policy approach with a BC-RNN (Behavioral Cloning with RNN) baseline trained on the same data. The BC-RNN baseline struggled to complete both tasks, often getting stuck near the target objects. Below shows representative failure cases from the baseline approach.
+          </p>
 
-          <!-- Compact Two-Column Baseline Videos -->
-          <div class="columns is-mobile" style="margin-top: 15px;">
+          <div class="columns" style="margin-top: 15px;">
             <div class="column is-half">
-              <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; color: #555;">Inclined Transport (Failed)</p>
-              <video playsinline controls muted loop preload="auto" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+              <video playsinline controls muted loop preload="auto" style="width: 100%; border-radius: 8px;">
                 <source src="./static/video/optimized/baseline1.mp4" type="video/mp4" />
               </video>
+              <p style="margin-top: 10px; text-align: center; font-size: 0.85rem; color: #777;">
+                BC-RNN baseline on inclined transport task
+              </p>
             </div>
             <div class="column is-half">
-              <p style="font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; color: #555;">Orange Extraction (Failed)</p>
-              <video playsinline controls muted loop preload="auto" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+              <video playsinline controls muted loop preload="auto" style="width: 100%; border-radius: 8px;">
                 <source src="./static/video/optimized/baseline2.mp4" type="video/mp4" />
               </video>
+              <p style="margin-top: 10px; text-align: center; font-size: 0.85rem; color: #777;">
+                BC-RNN baseline on orange extraction task
+              </p>
             </div>
           </div>
-          
-          <p style="margin-top: 20px; font-size: 0.9rem; color: #666; font-style: italic;">
-            BC-RNN baseline gets stuck near target objects without progressing to successful manipulation, highlighting the complexity of contact-aware suction tasks.
-          </p>
         </div>
       </div>
     </div>
