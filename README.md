@@ -49,7 +49,6 @@ FlexiCup/
 │   └── diffusion_policies/ # Diffusion policy implementation
 │       ├── data_collect.py  # Data collection pipeline
 │       ├── train.py        # Training script
-│       ├── eval.py         # Evaluation script
 │       ├── deploy.py       # Deployment script
 │       ├── environment.yml # Conda environment
 │       └── README.md       # Software documentation
@@ -137,7 +136,6 @@ Located in `Software/diffusion_policies/`, this contains the complete machine le
 **Main Components**:
 - **Data Collection** (`data_collect.py`): Automated data collection pipeline for demonstration gathering
 - **Training** (`train.py`): Diffusion policy training with multimodal observations
-- **Evaluation** (`eval.py`): Performance evaluation and testing scripts
 - **Deployment** (`deploy.py`): Real-time deployment for robot control
 - **Environment** (`environment.yml`): Conda environment with all dependencies
 
@@ -180,6 +178,7 @@ python train.py --config configs/flexicup_config.yaml
 ## 📄 Documentation
 
 - **Research Paper**: `PDF/paper.pdf`
+- **Tutorial**: `TUTORIAL.md` - Complete fabrication and setup guide
 - **Project Website**: `index.html` (view at https://jump-howl.github.io/FlexiCup/)
 - **Hardware README**: `Hardware/README.md`
 - **Software README**: `Software/diffusion_policies/README.md`
