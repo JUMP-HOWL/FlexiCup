@@ -54,7 +54,7 @@ The LED light source uses WS2812, which can actually produce color or dynamicall
 
 For assembly, I used M2.5 screws to secure the PCB to the suction cup top. The battery and antenna are sandwiched in the space between the PCB and suction cup top, while the light diffuser is held in place by friction at the outlet of the suction cup top.
 
-Although this may seem somewhat improvised, I discovered an interesting phenomenon in practice: **the light diffuser actually enhances suction force**. I hypothesize this may be due to the Bernoulli effect (yes, the same Bernoulli principle mentioned in my paper). As airflow passes through the gaps between the light diffuser and suction cup top, as well as between the PCB and suction cup top, the airflow accelerates, thereby reducing pressure. Interestingly, this phenomenon only appears in the vacuum suction cup, not in the Bernoulli suction cup. It's somewhat similar to the Venturi effect in a Venturi tube, but lacking a fluid mechanics background, I cannot provide a detailed theoretical analysis. I'll leave this phenomenon and hypothesis for interested readers to explore.
+Although this may seem somewhat improvised, I discovered an interesting phenomenon in practice: the light diffuser actually enhances suction force. I hypothesize this may be due to the Bernoulli effect (yes, the same Bernoulli principle mentioned in my paper). As airflow passes through the gaps between the light diffuser and suction cup top, as well as between the PCB and suction cup top, the airflow accelerates, thereby reducing pressure. Interestingly, this phenomenon only appears in the vacuum suction cup, not in the Bernoulli suction cup. It's somewhat similar to the Venturi effect in a Venturi tube, but lacking a fluid mechanics background, I cannot provide a detailed theoretical analysis. I'll leave this phenomenon and hypothesis for interested readers to explore.
 
 ## Firmware
 
@@ -76,7 +76,7 @@ After successful compilation, use a USB-to-TTL module for flashing. You need to 
 
 ## Learning Pipeline
 
-The complete learning pipeline is provided, and I hope it will be helpful. However, I don't think keyboard teleoperation for data collection is ideal, as it resulted in very jerky trained motions (to the point where reviewers questioned the dynamic capabilities). This is also related to the movement step size I initially set during data collection. 
+The complete learning pipeline is provided, and I hope it will be helpful. However, I don't think keyboard teleoperation for data collection is ideal, as it resulted in very jerky trained motions. This is also related to the movement step size I initially set during data collection. 
 
 I recommend trying **GELLO** (an excellent IROS teleoperation device work) for control. Although GELLO doesn't natively support UR3, following its calibration pipeline for data collection control should work.
 

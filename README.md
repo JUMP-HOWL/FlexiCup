@@ -225,18 +225,18 @@ Optimized videos are available in `static/video/optimized/`:
 4. Test vision and tactile sensing modes
 5. Run software algorithms for manipulation tasks
 
-## 📝 Citation
+<!-- ## 📝 Citation
 
 If you use this work in your research, please cite:
 
 ```bibtex
-@article{flexicup2024,
+@article{flexicup2025,
   title={FlexiCup: Wireless Multimodal Suction Cup with Dual-Zone Vision-Tactile Sensing},
   author={Anonymous},
   journal={Under Review},
-  year={2024}
+  year={2025}
 }
-```
+``` -->
 
 ## 📧 Contact
 

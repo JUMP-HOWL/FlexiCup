@@ -153,10 +153,10 @@ static camera_config_t camera_config = {
     .ledc_channel = LEDC_CHANNEL_0,
 
     .pixel_format = PIXFORMAT_JPEG,
-    .frame_size = FRAMESIZE_XGA,     // 1024x768
-    .jpeg_quality = 10,              // 原来是 10；数值越大码率越低，网络更稳
-    .fb_count = 2,                   // ★改为 2
-    .grab_mode = CAMERA_GRAB_LATEST, // ★改为 LATEST（丢旧保新）
+    .frame_size = FRAMESIZE_VGA,     // 640x480 - 降低到VGA以实现30fps
+    .jpeg_quality = 25,              // 提高压缩比，降低文件大小（质量值越大压缩越快）
+    .fb_count = 3,                   // 增至3个帧缓冲（需PSRAM支持）
+    .grab_mode = CAMERA_GRAB_LATEST, // 丢旧保新
 };
 
 /* ---------------------- 暗/明两套曝光模式（联动 LED） ---------------------- */
@@ -199,8 +199,8 @@ static void apply_light_mode(bool led_on)
             s->set_brightness(s, 0);
         }
 
-        /* 等待光照/RGB ISP 稳定（数值可 100~200ms 之间试） */
-        vTaskDelay(150 / portTICK_PERIOD_MS);
+        /* 等待光照/RGB ISP 稳定（优化延迟，保留基本稳定性） */
+        vTaskDelay(60 / portTICK_PERIOD_MS);
 
         /* 方案A：重新打开 AEC，让其在合理区间内微调；
            若想全手动，请改为 0，并改由上位机 setExposure 指令细调 */
@@ -528,7 +528,7 @@ void camera_task(void *pvParameters)
 
     /* 动态帧率上限（防止发包过快也有助于稳态） */
     TickType_t lastFrameTime = xTaskGetTickCount();
-    const TickType_t minFrameInterval = pdMS_TO_TICKS(50); // 20fps 上限
+    const TickType_t minFrameInterval = pdMS_TO_TICKS(10); // 移除帧率限制，追求极致延迟
 
     /* 看门狗：若长时间拿不到帧则软重启摄像头 */
     TickType_t lastOkTs = xTaskGetTickCount();
@@ -546,12 +546,17 @@ void camera_task(void *pvParameters)
         pic = esp_camera_fb_get();
         if (pic != NULL)
         {
-            /* 统计帧间隔/帧长，便于验证关灯后是否暴涨 */
+            /* 统计帧间隔/帧长，降低日志频率以减少开销 */
             static TickType_t last_ts = 0;
+            static uint32_t frame_count = 0;
             TickType_t tnow = xTaskGetTickCount();
             uint32_t dt_ms = last_ts ? (tnow - last_ts) * portTICK_PERIOD_MS : 0;
             last_ts = tnow;
-            ESP_LOGI("cam", "len=%u, dt=%lu ms", (unsigned)pic->len, (unsigned long)dt_ms);
+            frame_count++;
+            if (frame_count % 10 == 0)
+            {
+                ESP_LOGI("cam", "len=%u, dt=%lu ms, frames=%lu", (unsigned)pic->len, (unsigned long)dt_ms, (unsigned long)frame_count);
+            }
 
             /* 发送前置头信息 */
             unsigned int preSendPicLen = pic->len;
@@ -560,9 +565,9 @@ void camera_task(void *pvParameters)
             char picInfo[100];
             sprintf(picInfo, "%s,%d,%ld,%s", "frameData", pic->len, esp_log_timestamp(), deviceAttributeInfo.deviceID);
             sendto(udpSock, picInfo, strlen(picInfo), 0, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
-            vTaskDelay(5 / portTICK_PERIOD_MS);
+            // 移除5ms延迟以降低传输延迟
 
-            /* 分片发送：16KB 一片，中间加 1ms 呼吸，避免堆积 */
+            /* 分片发送：64KB 一片，移除延迟以追求极致速度 */
             if (preSendPicLen > UDP_SEND_MAX_LEN)
             {
                 int sendCnt = 0;
@@ -570,18 +575,17 @@ void camera_task(void *pvParameters)
                 {
                     sendto(udpSock, startPalce + (UDP_SEND_MAX_LEN * sendCnt), UDP_SEND_MAX_LEN, 0,
                            (struct sockaddr *)&dest_addr, sizeof(dest_addr));
-                    vTaskDelay(1 / portTICK_PERIOD_MS); // ★新增：轻微间隔
+                    // 移除1ms延迟以降低传输延迟
                     sendCnt++;
                 }
                 sendto(udpSock, startPalce + (UDP_SEND_MAX_LEN * sendCnt),
                        preSendPicLen % UDP_SEND_MAX_LEN, 0,
                        (struct sockaddr *)&dest_addr, sizeof(dest_addr));
-                vTaskDelay(1 / portTICK_PERIOD_MS); // ★新增
+                // 移除1ms延迟以降低传输延迟
             }
             else
             {
                 sendto(udpSock, startPalce, preSendPicLen, 0, (struct sockaddr *)&dest_addr, sizeof(dest_addr));
-                // 不再额外延时
             }
 
             /* 定时删除逻辑保持原样…… */
@@ -807,17 +811,7 @@ void appInit(void)
     setsockopt(udpSock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof timeout);
     ESP_LOGI(UDP, "Socket created, sending to %s:%d", deviceAttributeInfo.UDP_serverIP, deviceAttributeInfo.UDP_serverPort);
 
-    /* 你工程原来用 xTaskCreate；可保持原样。
-       若你们希望更稳，可考虑将 camera_task 固定在 APP CPU，UDP/LED 在另一核：
-       xTaskCreatePinnedToCore(camera_task, "camera_task", 1024*50, NULL, 3, &cameraTaskHandle, 1);
-       xTaskCreatePinnedToCore(led_task, "led_task", 1024*4, NULL, 2, &ledTaskHandle, 0);
-       xTaskCreatePinnedToCore(udpReceive_task, "udpReceive_task", 1024*50, NULL, 4, NULL, 0);
-       ★ 请同学根据你们的 FreeRTOS/ESP-IDF 配置核对是否可用 pinned API。
-    */
-    xTaskCreatePinnedToCore(camera_task, "camera_task", 1024 * 50, NULL, 3, &cameraTaskHandle, 1);
-    xTaskCreatePinnedToCore(led_task, "led_task", 1024 * 4, NULL, 2, &ledTaskHandle, 0);
-    xTaskCreatePinnedToCore(udpReceive_task, "udpReceive_task", 1024 * 50, NULL, 4, NULL, 0);
-    // xTaskCreate(led_task, "led_task", 1024 * 4, NULL, 2, &ledTaskHandle);
-    // xTaskCreate(camera_task, "camera_task", 1024 * 50, NULL, 3, &cameraTaskHandle);
-    // xTaskCreate(udpReceive_task, "udpReceive_task", 1024 * 50, NULL, 4, NULL);
+    xTaskCreate(led_task, "led_task", 1024 * 4, NULL, 2, &ledTaskHandle);
+    xTaskCreate(camera_task, "camera_task", 1024 * 50, NULL, 3, &cameraTaskHandle);
+    xTaskCreate(udpReceive_task, "udpReceive_task", 1024 * 50, NULL, 4, NULL);
 }
