@@ -1,19 +1,27 @@
-# FlexiCup Firmware Code
+# FlexiCup Firmware
 
-This directory contains the firmware code for the FlexiCup system.
+This directory contains the ESP32-S3 firmware for the FlexiCup system, built with the ESP-IDF framework (v5.0.2).
 
 ## Components
 
-- **ESP32S3 Controller**: Main microcontroller firmware
-- **Camera Module**: OV5640 camera control and image processing
-- **LED Control**: Illumination switching for vision-tactile sensing
-- **Wireless Communication**: Wi-Fi streaming and control
-- **Sensor Integration**: Multi-modal sensor data fusion
+- **Camera Module** (`camera.c/h`): OV5640 camera configuration and 640×480 @ 30 Hz image capture
+- **LED Control** (`led.c/h`): WS2812 addressable RGB LED illumination switching for vision-tactile modality control
+- **HTTP Server** (`httpServer.c/h`): Web interface and real-time video streaming
+- **Wi-Fi** (`wifiConnect.c/h`): Wireless communication and UDP image streaming
 
-## Development
+## Key Specifications
 
-The firmware is developed using ESP-IDF framework for ESP32S3.
+- **Resolution**: 640×480 @ 30 Hz
+- **Streaming**: Real-time video over Wi-Fi (UDP)
+- **Power**: 3.7V 300mAh LiPo battery (~30 min runtime)
+- **Charging**: Wireless charging at 200 mA (12.5 μH coil)
 
-## Files
+## Building and Flashing
 
-Firmware source code will be available upon paper acceptance.
+```bash
+cd Hardware/Firmware/ESPCAM
+idf.py build
+idf.py -p /dev/ttyUSB0 flash
+```
+
+See `TUTORIAL.pdf` in the repository root for detailed flashing procedures including boot mode selection and USB-to-TTL connections.

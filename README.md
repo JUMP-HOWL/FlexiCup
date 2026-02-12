@@ -1,6 +1,6 @@
 # FlexiCup: Wireless Multimodal Suction Cup with Dual-Zone Vision-Tactile Sensing
 
-This repository contains the complete project files for FlexiCup, including hardware designs, firmware code, software algorithms, and project documentation.
+This repository contains the complete project files for FlexiCup—a multimodal suction cup with wireless electronics that integrates dual-zone vision-tactile sensing. The modular mechanical design supports both vacuum and Bernoulli actuation modes while maintaining the identical sensing architecture, demonstrating sensing-actuation decoupling. Included are hardware designs (CAD/STEP, PCB schematics/layout/BOM/Gerber), ESP32-S3 firmware, the full learning pipeline, and documentation.
 
 ## 📁 Repository Structure
 
@@ -116,10 +116,10 @@ Located in `Hardware/Firmware/ESPCAM/`, built with ESP-IDF framework.
 - **Wi-Fi** (`wifiConnect.c/h`): Wireless communication
 
 **Key Specifications**:
-- Image Resolution: 1024×768 @ 30Hz
-- Streaming: Real-time video over Wi-Fi
-- Tactile Resolution: 60,248 pixels·cm⁻²
-- Power: 3.7V 300mAh LiPo battery
+- Image Resolution: 640×480 @ 30 Hz
+- Streaming: Real-time video over Wi-Fi (UDP)
+- Power: 3.7V 300mAh LiPo battery with wireless charging
+- Runtime: ~30 minutes continuous operation
 
 **Building the Firmware**
 ```bash
@@ -140,11 +140,11 @@ Located in `Software/diffusion_policies/`, this contains the complete machine le
 - **Environment** (`environment.yml`): Conda environment with all dependencies
 
 **Key Features**:
-- Multimodal fusion of vision and tactile data
-- Diffusion-based policy learning
-- Real-time inference for robot control
-- Support for dual-zone sensing integration
-- Contact-aware manipulation capabilities
+- Multimodal fusion of dual-zone vision-tactile data via multi-head attention (8 heads, 512-d)
+- Diffusion policy with action chunking (8-step history, 48-step horizon)
+- AdamW optimizer with cosine annealing, 500 epochs training
+- Real-time inference for robot control at 10 Hz
+- Contact-aware manipulation with illumination switching and valve control
 
 **Setup and Usage**
 ```bash
@@ -157,41 +157,45 @@ python train.py --config configs/flexicup_config.yaml
 ## 📊 System Specifications
 
 ### Mechanical
-- **Suction Force**: Up to 34.3N (vacuum mode)
-- **Modes**: Vacuum and Bernoulli suction
-- **Configurations**: 4 modular bottom designs
-- **Material**: PDMS membrane with reflective coating
+- **Normal Force**: 41.5 N (mean, at −80 kPa vacuum)
+- **Shear Force**: 8.34 N (mean)
+- **Modes**: Vacuum (sustained-contact adhesion) and Bernoulli (contactless lifting)
+- **Configurations**: 4 modular bottom designs (I–II vacuum, III–IV Bernoulli)
+- **Material**: Dual-layer PDMS membrane (30:1 base + Ag:PDMS 100:1 reflective layer)
 
 ### Electronics
-- **Controller**: ESP32S3
+- **Controller**: ESP32-S3 (dual-core, Wi-Fi enabled)
 - **Camera**: OV5640 with 180° fisheye lens
-- **Connectivity**: Wi-Fi 802.11 b/g/n
-- **Power**: Wireless charging capable
-- **Battery Life**: Standalone operation supported
+- **Resolution**: 640×480 @ 30 Hz
+- **Connectivity**: Wi-Fi 802.11 b/g/n (UDP streaming)
+- **Power**: 3.7V 300mAh LiPo with wireless charging (12.5 μH coil, 200 mA)
+- **Runtime**: ~30 minutes continuous operation
 
 ### Sensing
-- **Vision**: 1024×768 resolution
-- **Tactile**: 60,248 pixels·cm⁻²
-- **Dual-Zone**: Central (switchable) + Peripheral (continuous)
-- **Frame Rate**: 30 Hz
+- **Dual-Zone**: Central (switchable vision-tactile via LED control) + Peripheral (continuous spatial awareness)
+- **Modality Switching**: Real-time illumination control by ESP32-S3
+- **Multimodal Recognition**: 100% accuracy (vs. vision-only 82.5%, tactile-only 46.7%)
 
 ## 📄 Documentation
 
 - **Research Paper**: `PDF/paper.pdf`
-- **Tutorial**: `TUTORIAL.md` - Complete fabrication and setup guide
-- **Project Website**: `index.html` (view at https://jump-howl.github.io/FlexiCup/)
+- **Tutorial**: `TUTORIAL.pdf` - Complete fabrication and deployment guide
+- **Companion Website**: `index.html` (view at https://jump-howl.github.io/FlexiCup/)
 - **Hardware README**: `Hardware/README.md`
 - **Software README**: `Software/diffusion_policies/README.md`
 
 ## 🎥 Video Demonstrations
 
 Optimized videos are available in `static/video/optimized/`:
-- `overview.mp4` (6.2MB): System overview
-- `integrated_show.mp4` (1.7MB): Hardware integration
-- `multimodal_performance.mp4` (1.4MB): Sensing performance
-- `modular_task.mp4` (970KB): Modular grasping tasks
-- `dptask1.mp4` (1.2MB): Inclined transport task
-- `dptask2.mp4` (759KB): Orange extraction task
+- `overview.mp4`: System overview
+- `integrated_show.mp4`: Hardware integration and assembly
+- `multimodal_performance.mp4`: Vision-tactile sensing demonstration
+- `modular_task.mp4`: Modular perception-driven grasping (vacuum & Bernoulli)
+- `dptask1.mp4`: Inclined transport task (diffusion policy)
+- `dptask2.mp4`: Orange extraction task (diffusion policy)
+- `baseline1.mp4` / `baseline2.mp4`: BC-RNN baseline comparisons
+- `Wafer_Bernoulli.mp4` / `Wafer_Vaccum.mp4`: Wafer handling comparison
+- `Move_Orange.mp4` / `Move_Bottle.mp4`: Dynamic performance evaluation
 
 ## 🚀 Getting Started
 
