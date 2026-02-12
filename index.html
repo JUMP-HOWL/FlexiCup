@@ -170,17 +170,17 @@
 <!-- Side Navigation -->
 <nav class="side-nav">
   <a href="#overview" class="main-link">Overview</a>
-  
+
   <a href="#hardware" class="main-link">Hardware Design</a>
   <a href="#hw-architecture" class="sub-link">System Architecture</a>
   <a href="#hw-sensing" class="sub-link">Vision-Tactile Sensing</a>
   <a href="#hw-dualmode" class="sub-link">Dual-Mode Mechanisms</a>
-  
+
   <a href="#characterization" class="main-link">System Characterization</a>
   <a href="#char-force" class="sub-link">Force Characterization</a>
   <a href="#char-wafer" class="sub-link">Non-Contact Verification</a>
   <a href="#char-dynamic" class="sub-link">Dynamic Performance</a>
-  
+
   <a href="#applications" class="main-link">Applications</a>
   <a href="#app-modular" class="sub-link">Modular Grasping</a>
   <a href="#app-learning" class="sub-link">End-to-End Learning</a>
@@ -231,7 +231,7 @@
               </span>
               <!-- Tutorial Link -->
               <span class="link-block">
-                <a href="./TUTORIAL.md"
+                <a href="./TUTORIAL.pdf"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-book"></i>
@@ -256,7 +256,7 @@
         <img src="./static/images/image/FigCover.png" alt="FlexiCup System Overview" style="width:100%; margin-bottom: 30px;" />
         <div class="content has-text-justified" style="margin-bottom: 20px;">
           <p>
-            FlexiCup is a wireless multimodal suction cup featuring dual-zone vision-tactile sensing. The central zone dynamically switches between vision and tactile modalities through LED illumination control, enabling precise contact detection. The peripheral zone maintains continuous spatial awareness for approach planning. Supporting both vacuum and Bernoulli suction modes through modular configurations, FlexiCup achieves complete wireless autonomy with onboard computation and power. Key specifications include 41.5N maximum normal force and 640×480@30Hz video streaming over Wi-Fi.
+            Conventional suction cups lack sensing capabilities for contact-aware manipulation in unstructured environments. FlexiCup is a multimodal suction cup with wireless electronics that integrates dual-zone vision-tactile sensing within a single optical system. The central zone dynamically switches between vision and tactile modalities via LED illumination control, while the peripheral zone provides continuous spatial awareness. The modular mechanical design supports both vacuum (sustained-contact adhesion) and Bernoulli (contactless lifting) actuation while maintaining the identical dual-zone sensing architecture, demonstrating sensing-actuation decoupling where sensing and actuation principles are orthogonally separable. Key specifications include 41.5 N maximum normal force and 640×480@30 Hz image streaming over Wi-Fi.
           </p>
         </div>
         <div class="video-container">
@@ -277,7 +277,7 @@
     <!-- System Integration -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h3 class="title is-3" id="hw-architecture">System Integration and Architecture</h3>
+        <h3 class="title is-3" id="hw-architecture">System Architecture and Integration</h3>
         <div class="video-container">
           <video class="video-player" playsinline controls autoplay muted loop preload="auto">
             <source src="./static/video/optimized/integrated_show.mp4" type="video/mp4" />
@@ -285,7 +285,7 @@
         </div>
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            The system integrates modular components including pneumatic airways, optical system (OV5640 camera with 180° fisheye lens), electronics (ESP32S3 controller), and mechanical assembly. A wireless charging configuration enables standalone operation with a 3.7V 300mAh lithium battery, supporting both tethered and untethered modes for flexible deployment.
+            The system adopts a modular layered architecture integrating pneumatic actuation, electronic control, and optical sensing. The bottom housing provides the pneumatic interface and contact surface with a central groove for the PDMS membrane; its airway geometry differs between vacuum and Bernoulli configurations while the membrane mounting interface remains consistent. The top housing mounts a PCB assembly centered on an ESP32S3 microcontroller (3.7 V, 300 mAh battery, 12.5 μH wireless charging coil), streaming 640×480 images at 30 Hz over Wi-Fi. The electronic module remains identical across both suction modes, enabling wireless operation with electrical decoupling from the robot arm.
           </p>
         </div>
         <img src="./static/images/image/FigStructure.png" alt="System Architecture" style="width:100%; margin-top: 30px;" />
@@ -303,35 +303,31 @@
         </div>
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            A single 180° fisheye camera enables dynamic switching between environmental vision and tactile perception through LED illumination control. The dual-zone architecture provides switchable visuotactile sensing in the central zone and continuous spatial awareness in the peripheral zone. This multimodal fusion achieves 100% object recognition accuracy, significantly outperforming vision-only (82.5%) and tactile-only (46.7%) approaches.
+            A single 180° fisheye camera captures two functional zones: the central zone enables switchable vision-tactile sensing via illumination control, while the peripheral zone maintains continuous spatial awareness. In vision mode, LEDs remain inactive, allowing ambient light through the membrane for object detection. In tactile mode, LEDs illuminate the membrane internally, imaging deformations induced by contact forces. Multimodal fusion with multi-head attention (8 heads, 512-d) achieves 100% object recognition accuracy across 13 categories, outperforming vision-only (82.5%) and tactile-only (46.7%) approaches.
           </p>
         </div>
 
-        <!-- Two-Column Layout for Dual-Zone and PDMS -->
-        <div class="columns" style="margin-top: 40px;">
+        <!-- Two-Column Layout for Dual-Zone and PDMS - 2x1 Large Images -->
+        <div style="margin-top: 40px;">
           <!-- Dual-Zone Sensing Architecture -->
-          <div class="column is-half">
-            <div style="padding: 0 20px;">
-              <h4 class="title is-4">Dual-Zone Sensing</h4>
-              <img src="./static/images/image/FigVisionTactile.png" alt="Vision-Tactile Sensing System" style="width:100%;" />
-              <div class="content has-text-justified" style="margin-top: 15px;">
-                <p>
-                  The peripheral zone maintains environmental awareness through continuous vision, while the central zone provides high-resolution tactile feedback via LED-controlled illumination switching. This architecture enables simultaneous spatial context understanding and precise contact detection for robust manipulation.
-                </p>
-              </div>
+          <div style="margin-bottom: 50px;">
+            <h4 class="title is-4">Dual-Zone Sensing</h4>
+            <img src="./static/images/image/FigVisionTactile.png" alt="Vision-Tactile Sensing System" style="width:100%;" />
+            <div class="content has-text-justified" style="margin-top: 15px;">
+              <p>
+                The peripheral zone maintains environmental awareness through continuous vision for approach planning and obstacle detection, while the central zone provides high-resolution contact imaging via LED-controlled illumination switching. The system switches modalities in real-time through the ESP32S3 microcontroller with dynamic camera exposure and gain adjustments, enabling simultaneous spatial context and precise contact detection for robust manipulation.
+              </p>
             </div>
           </div>
 
           <!-- PDMS Membrane Design -->
-          <div class="column is-half">
-            <div style="padding: 0 20px;">
-              <h4 class="title is-4">PDMS Membrane Design</h4>
-              <img src="./static/images/image/FigPDMS.png" alt="PDMS Membrane Design" style="width:100%;" />
-              <div class="content has-text-justified" style="margin-top: 15px;">
-                <p>
-                  The membrane features a dual-layer design: a PDMS base layer (30:1 ratio, 70°C×4h) provides mechanical compliance, while a semitransparent reflective layer (Ag:PDMS 100:1, 70°C×0.5h) enables photometric tactile imaging. Four modular configurations (I-IV) support vacuum (I-II) and Bernoulli (III-IV) operations, achieving adhesion forces from sub-Newton to over 30N.
-                </p>
-              </div>
+          <div>
+            <h4 class="title is-4">PDMS Membrane Design</h4>
+            <img src="./static/images/image/FigPDMS.png" alt="PDMS Membrane Design" style="width:100%;" />
+            <div class="content has-text-justified" style="margin-top: 15px;">
+              <p>
+                The dual-layer membrane employs a PDMS base layer (30:1 ratio, 70°C × 4h) providing mechanical compliance that captures surface details, and a semitransparent reflective layer (Ag:PDMS 100:1, 70°C × 0.5h) providing the reflective surface for photometric tactile imaging. Four modular bottom configurations (I–IV) implement varying membrane diameters: Configurations I–II are optimized for vacuum operation with deformable objects and tactile sensitivity, while III–IV support Bernoulli operation. Adhesion force ranges from sub-Newton to over 40 N across configurations.
+              </p>
             </div>
           </div>
         </div>
@@ -351,7 +347,7 @@
         </p>
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            FlexiCup supports vacuum and Bernoulli suction modes through modular mechanical configurations. Vacuum mode provides strong adhesion for rigid objects, while Bernoulli mode enables contactless levitation for gentle manipulation of delicate items. Four modular bottom configurations accommodate diverse object geometries and manipulation requirements.
+            FlexiCup supports vacuum and Bernoulli suction through modular bottom housing reconfiguration. Vacuum mode generates adhesion through negative pressure, requiring sustained contact that induces continuous membrane deformation for dense tactile feedback. Bernoulli mode creates contactless lifting through outward airflow, supporting visual perception and tactile verification during positioning. Both modes share the identical dual-zone sensing architecture and control pipelines, confirming sensing-actuation decoupling where mode selection depends on task requirements rather than sensing constraints. The pneumatic system employs a vacuum pump (750 W, 140 L/min, −90 kPa max) and an air compressor (800 W, 65 L/min, 0.8 MPa) for the respective modes.
           </p>
         </div>
       </div>
@@ -370,18 +366,18 @@
         <h3 class="title is-3" id="char-force">Sensor-Based Force Characterization</h3>
         <div class="content has-text-justified" style="margin-bottom: 30px;">
           <p>
-            To rigorously validate suction force capabilities, we conducted comprehensive measurements using a calibrated 6-axis force/torque sensor. Automated normal pull-off and tangential drag tests were performed on a flat acrylic surface at -80 kPa vacuum pressure, with 20 trials per test ensuring statistical reliability.
+            To characterize suction performance, we conducted automated force measurements using a calibrated 6-axis force/torque sensor on a smooth acrylic surface at −80 kPa vacuum pressure. The test protocol included normal pull-off tests measuring detachment force and horizontal drag tests measuring shear resistance, with each test repeated 20 times for statistical reliability.
           </p>
         </div>
 
         <img src="./static/images/image/FigForceTest.png" alt="Sensor-Based Force Characterization" style="width:100%; margin-bottom: 30px;" />
         <p style="margin-bottom: 30px; text-align: center; font-style: italic; color: #555;">
-          Force measurements at -80 kPa: normal force (pull-off) and tangential force (drag) averaged over 20 trials. Inset: experimental setup with 6-axis force/torque sensor.
+          Force measurements at −80 kPa: normal force (pull-off) and tangential force (drag) averaged over 20 trials. Inset: experimental setup with 6-axis force/torque sensor.
         </p>
 
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            <strong>Results:</strong> Measurements yielded a mean maximum normal force of 41.50 N and tangential (shear) force of 8.34 N. Compared to the theoretical baseline F = P × A using nominal diameter 23 mm (≈33.2 N), the measured normal force is higher, likely due to suction cup compliance increasing the effective sealing area under vacuum. Force profiles capture transient behaviors during attachment and detachment, providing comprehensive characterization of dynamic force characteristics, repeatability, and surface dependency.
+            <strong>Results:</strong> The averaged force profiles reveal transient behaviors during attachment and detachment. Measurements demonstrate a mean maximum normal force of 41.5 N and shear force of 8.34 N, exceeding theoretical predictions (F = P × A ≈ 33.2 N for nominal diameter 23 mm) due to structural compliance increasing the effective sealing area under vacuum.
           </p>
         </div>
       </div>
@@ -393,63 +389,55 @@
         <h3 class="title is-3" id="char-wafer">Non-Contact Verification: Wafer Handling</h3>
         <div class="content has-text-justified" style="margin-bottom: 20px;">
           <p>
-            To directly verify non-contact handling capability, we conducted wafer pick-up experiments comparing vacuum and Bernoulli suction modes. Results demonstrate that Bernoulli suction maintains near-zero contact force during lifting, while vacuum suction requires physical contact to establish a seal.
+            To experimentally verify non-contact handling capability, we conducted semiconductor wafer pick-up experiments comparing vacuum and Bernoulli suction modes. The two modes serve complementary roles: vacuum provides strong sustained-contact adhesion, while Bernoulli enables contactless lifting essential for delicate surfaces.
           </p>
         </div>
 
-        <!-- Two-Column Video Layout -->
-        <div class="columns" style="margin-top: 20px;">
+        <!-- Video Layout - 2x1 Large Format -->
+        <div style="margin-top: 20px;">
           <!-- Bernoulli Video -->
-          <div class="column is-half">
-            <div style="padding: 0 10px;">
-              <h4 class="title is-4 has-text-centered">Bernoulli Mode</h4>
-              <div class="video-container">
-                <video class="video-player" playsinline controls autoplay muted loop preload="auto">
-                  <source src="./static/video/optimized/Wafer_Bernoulli.mp4" type="video/mp4" />
-                </video>
-              </div>
+          <div style="margin-bottom: 40px;">
+            <h4 class="title is-4 has-text-centered">Bernoulli Mode</h4>
+            <div class="video-container">
+              <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                <source src="./static/video/optimized/Wafer_Bernoulli.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
 
           <!-- Vacuum Video -->
-          <div class="column is-half">
-            <div style="padding: 0 10px;">
-              <h4 class="title is-4 has-text-centered">Vacuum Mode</h4>
-              <div class="video-container">
-                <video class="video-player" playsinline controls autoplay muted loop preload="auto">
-                  <source src="./static/video/optimized/Wafer_Vaccum.mp4" type="video/mp4" />
-                </video>
-              </div>
+          <div>
+            <h4 class="title is-4 has-text-centered">Vacuum Mode</h4>
+            <div class="video-container">
+              <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                <source src="./static/video/optimized/Wafer_Vaccum.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
         </div>
 
-        <!-- Result Images in 1x2 Layout -->
-        <div class="columns" style="margin-top: 30px;">
+        <!-- Result Images in 2x1 Layout (Vertical Stack) -->
+        <div style="margin-top: 30px;">
           <!-- Before/After Comparison -->
-          <div class="column is-half">
-            <div style="padding: 0 10px;">
-              <img src="./static/images/image/ResWaferCompare.png" alt="Wafer Pick-up Comparison" style="width:100%;" />
-              <p style="margin-top: 10px; text-align: center; font-size: 0.9rem; color: #666;">
-                Surface condition after manipulation: vacuum leaves contact marks, Bernoulli maintains clean surface
-              </p>
-            </div>
+          <div style="margin-bottom: 40px;">
+            <img src="./static/images/image/ResWaferCompare.png" alt="Wafer Pick-up Comparison" style="width:100%;" />
+            <p style="margin-top: 15px; text-align: center; font-size: 0.95rem; color: #666;">
+              Surface condition after manipulation: vacuum leaves visible contact smudging, Bernoulli maintains pristine surface
+            </p>
           </div>
 
           <!-- Force Measurement -->
-          <div class="column is-half">
-            <div style="padding: 0 10px;">
-              <img src="./static/images/image/ResWaferForce.png" alt="Force Measurement" style="width:100%;" />
-              <p style="margin-top: 10px; text-align: center; font-size: 0.9rem; color: #666;">
-                Measured vertical force: Bernoulli ≈0N (non-contact), Vacuum ≈3.5N (contact required)
-              </p>
-            </div>
+          <div>
+            <img src="./static/images/image/ResWaferForce.png" alt="Force Measurement" style="width:100%;" />
+            <p style="margin-top: 15px; text-align: center; font-size: 0.95rem; color: #666;">
+              Measured vertical force: Bernoulli ≈ 0 N (non-contact), Vacuum ≈ 3.5 N (contact required)
+            </p>
           </div>
         </div>
 
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            The Bernoulli configuration successfully achieves non-contact handling, evidenced by clean wafer surfaces post-manipulation, near-zero force measurements, and visible air gap maintained throughout the lifting process.
+            The vacuum-picked wafer exhibited visible smudging (~3.5 N peak contact force), while the Bernoulli-picked wafer remained pristine with near-zero contact force. This confirms Bernoulli's contactless handling capability for delicate surfaces, complementing vacuum's stronger adhesion for general manipulation.
           </p>
         </div>
       </div>
@@ -461,40 +449,36 @@
         <h3 class="title is-3" id="char-dynamic">Dynamic Performance Evaluation</h3>
         <div class="content has-text-justified" style="margin-bottom: 20px;">
           <p>
-            To evaluate real-time performance and dynamic robustness, we conducted stress tests at realistic motion speeds. After establishing suction, the robot performs fast motions (joint speed = 3.0 rad/s, acceleration = 3.0 rad/s²) while holding objects. Demonstrations include an orange and a water-filled bottle, where water sloshing causes significant mass distribution changes, yet the suction grasp remains stable with no sensing degradation.
+            Dynamic stress tests at 3.0 rad/s joint speed and 3.0 rad/s² acceleration demonstrate stable suction and sensing performance while holding objects with varying mass distributions. Demonstrations include an orange and a water-filled bottle, where water sloshing causes significant dynamic mass redistribution, yet the suction grasp remains stable with no sensing degradation.
           </p>
         </div>
 
-        <!-- Two-Column Video Layout for Dynamic Performance -->
-        <div class="columns" style="margin-top: 20px;">
+        <!-- Video Layout for Dynamic Performance - 2x1 Large Format -->
+        <div style="margin-top: 20px;">
           <!-- Orange Holding -->
-          <div class="column is-half">
-            <div style="padding: 0 10px;">
-              <h4 class="title is-4 has-text-centered">Fast Motion with Orange</h4>
-              <div class="video-container">
-                <video class="video-player" playsinline controls autoplay muted loop preload="auto">
-                  <source src="./static/video/optimized/Move_Orange.mp4" type="video/mp4" />
-                </video>
-              </div>
+          <div style="margin-bottom: 40px;">
+            <h4 class="title is-4 has-text-centered">Fast Motion with Orange</h4>
+            <div class="video-container">
+              <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                <source src="./static/video/optimized/Move_Orange.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
 
           <!-- Water Bottle Holding -->
-          <div class="column is-half">
-            <div style="padding: 0 10px;">
-              <h4 class="title is-4 has-text-centered">Fast Motion with Water Bottle</h4>
-              <div class="video-container">
-                <video class="video-player" playsinline controls autoplay muted loop preload="auto">
-                  <source src="./static/video/optimized/Move_Bottle.mp4" type="video/mp4" />
-                </video>
-              </div>
+          <div>
+            <h4 class="title is-4 has-text-centered">Fast Motion with Water Bottle</h4>
+            <div class="video-container">
+              <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                <source src="./static/video/optimized/Move_Bottle.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
         </div>
 
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            The demonstrations confirm stable grasping during fast motions, robustness to dynamic mass redistribution from water sloshing, and consistent sensing performance without image degradation or modality switching issues.
+            The demonstrations confirm stable grasping during aggressive motions, robustness to dynamic mass redistribution, and consistent sensing performance without image degradation or modality switching issues.
           </p>
         </div>
       </div>
@@ -519,7 +503,7 @@
         </div>
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            A modular control framework demonstrates threshold-based perception-driven grasping with dual-mode suction mechanisms. Experimental evaluation on LEGO board manipulation shows vacuum mode achieving 90.0% success rate and Bernoulli mode achieving 86.7% success rate. The system successfully handles object localization, obstacle detection, surface alignment, and contact confirmation through visuotactile sensing.
+            To validate that the dual-zone sensing architecture operates effectively across both actuation principles, we conduct modular perception-driven grasping using identical sensing and control pipelines with only pneumatic parameter adjustments. The pipeline integrates YOLOv8n for peripheral target detection and ResNet-34 for central tactile verification. On LEGO board manipulation with 25%, 50%, and 75% obstacle coverage (180 total trials), vacuum mode achieves 90.0% and Bernoulli mode achieves 86.7% mean success rate. The comparable success rates validate sensing-actuation decoupling: performance differences stem from actuation mechanisms rather than sensing limitations.
           </p>
         </div>
       </div>
@@ -529,76 +513,74 @@
     <div class="columns is-centered has-text-centered" style="margin-top: 60px;">
       <div class="column is-four-fifths">
         <h3 class="title is-3" id="app-learning">End-to-End Contact-Aware Manipulation</h3>
-        
+
         <!-- Learning Framework -->
         <img src="./static/images/image/FigFramework.png" alt="Learning Framework" style="width:100%;" />
         <div class="content has-text-justified" style="margin-top: 20px;">
           <p>
-            A diffusion policy network processes multiscale observations from workspace and dual-zone suction cameras through parallel ResNet-18 encoders. A multihead attention mechanism enables interaction between peripheral and central features, integrating visuotactile information for contact-aware manipulation. The unified framework outputs robot pose, illumination control, and valve state commands.
+            A diffusion policy framework processes multimodal observations (workspace camera, peripheral view, central view, system state) through parallel ResNet-18 encoders. A multi-head attention mechanism (8 heads, 512 dimensions) coordinates central and peripheral features, correlating contact details with spatial context during approach-to-manipulation transitions. The action chunking mechanism (8-step history, 48-step horizon) generates coordinated sequences controlling robot joints, illumination switching, and pneumatic valve state. Training uses AdamW optimizer with cosine annealing over 500 epochs.
           </p>
         </div>
 
         <!-- Task Demonstrations Flowchart -->
         <img src="./static/images/image/FigTaskRollouts.png" alt="Task Demonstrations Flowchart" style="width:100%; margin-top: 40px; margin-bottom: 40px;" />
 
-        <!-- Two-Column Task Layout -->
-        <div class="columns" style="margin-top: 20px;">
+        <!-- Task Demonstrations - 2x1 Large Format -->
+        <div style="margin-top: 20px;">
           <!-- Inclined Transport Task -->
-          <div class="column is-half">
-            <div style="padding: 0 20px;">
-              <h4 class="title is-4 has-text-centered">Inclined Transport Task</h4>
-              <div class="video-container">
-                <video class="video-player" playsinline controls autoplay muted loop preload="auto">
-                  <source src="./static/video/optimized/dptask1.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div class="content has-text-justified" style="margin-top: 20px;">
-                <p>
-                  This task demonstrates six-stage manipulation: workspace observation for initial localization, suction camera-guided search, approach and alignment using peripheral vision, inclined transport with tactile contact detection, contact confirmation through central zone sensing, and final object lifting. The system achieves 73.3% success rate, with multihead attention improving performance by 13% over baseline approaches.
-                </p>
-              </div>
+          <div style="margin-bottom: 40px; padding: 0;">
+            <h4 class="title is-4 has-text-centered">Inclined Transport Task</h4>
+            <div class="video-container">
+              <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                <source src="./static/video/optimized/dptask1.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="content has-text-justified" style="margin-top: 20px;">
+              <p>
+                Inclined transport involves positioning above the surface, searching for suitable contact regions, adjusting tilt angle guided by tactile feedback to match inclined surfaces (5°, 10°, or 15°), verifying contact, and performing secure lifting. The system achieves 73.3% success rate (150 demonstrations, 30 evaluation trials), with multi-head attention providing 13% improvement over the configuration without attention by coordinating dual-zone information during vision-tactile transitions.
+              </p>
             </div>
           </div>
 
           <!-- Orange Extraction Task -->
-          <div class="column is-half">
-            <div style="padding: 0 20px;">
-              <h4 class="title is-4 has-text-centered">Orange Extraction Task</h4>
-              <div class="video-container">
-                <video class="video-player" playsinline controls autoplay muted loop preload="auto">
-                  <source src="./static/video/optimized/dptask2.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <div class="content has-text-justified" style="margin-top: 20px;">
-                <p>
-                  This task involves lid removal, re-alignment, and tactile-guided grasping of deformable objects from containers. The system achieves 66.7% success rate, demonstrating effective integration of multimodal sensing with learned control for contact-aware manipulation of compliant objects. Ablation studies confirm central zone sensing is essential for contact detection, while attention mechanisms significantly enhance feature coordination.
-                </p>
-              </div>
+          <div style="padding: 0;">
+            <h4 class="title is-4 has-text-centered">Orange Extraction Task</h4>
+            <div class="video-container">
+              <video class="video-player" playsinline controls autoplay muted loop preload="auto">
+                <source src="./static/video/optimized/dptask2.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <div class="content has-text-justified" style="margin-top: 20px;">
+              <p>
+                Orange extraction consists of transparent cover removal in vision mode, realignment above the orange, then tactile-guided grasping with LED-enabled contact detection. The system achieves 66.7% success rate (100 demonstrations, 30 evaluation trials). Ablation studies confirm that central zone sensing is critical for contact detection (removal reduces to 33.3%), while peripheral view contributes essential spatial context for approach planning (removal reduces to 36.7%). Workspace camera alone achieves 0% on this task, confirming that intimate sensing is necessary for contact-critical manipulation.
+              </p>
             </div>
           </div>
         </div>
-        
+
         <!-- Baseline Comparison -->
         <div style="margin-top: 40px;">
           <p class="content has-text-justified" style="margin-bottom: 20px;">
-            We also compared our diffusion policy approach with a BC-RNN (Behavioral Cloning with RNN) baseline trained on the same data. The BC-RNN baseline struggled to complete both tasks, often getting stuck near the target objects. Below shows representative failure cases from the baseline approach.
+            A BC-RNN (Behavioral Cloning with RNN) baseline trained on the same demonstration data failed both tasks (0% success), frequently becoming stuck or failing to coordinate modality switching. This is consistent with findings from the original diffusion policy work, where recurrent baselines exhibited similar stuck behaviors with multimodal action distributions, confirming the advantage of diffusion policy's action chunking mechanism for coordinated suction manipulation.
           </p>
 
-          <div class="columns" style="margin-top: 15px;">
-            <div class="column is-half">
+          <div style="margin-top: 15px;">
+            <!-- BC-RNN Baseline 1 -->
+            <div style="margin-bottom: 40px;">
               <video playsinline controls muted loop preload="auto" style="width: 100%; border-radius: 8px;">
                 <source src="./static/video/optimized/baseline1.mp4" type="video/mp4" />
               </video>
-              <p style="margin-top: 10px; text-align: center; font-size: 0.85rem; color: #777;">
-                BC-RNN baseline on inclined transport task
+              <p style="margin-top: 15px; text-align: center; font-size: 0.9rem; color: #777;">
+                BC-RNN baseline on inclined transport task: stuck behavior near target
               </p>
             </div>
-            <div class="column is-half">
+            <!-- BC-RNN Baseline 2 -->
+            <div>
               <video playsinline controls muted loop preload="auto" style="width: 100%; border-radius: 8px;">
                 <source src="./static/video/optimized/baseline2.mp4" type="video/mp4" />
               </video>
-              <p style="margin-top: 10px; text-align: center; font-size: 0.85rem; color: #777;">
-                BC-RNN baseline on orange extraction task
+              <p style="margin-top: 15px; text-align: center; font-size: 0.9rem; color: #777;">
+                BC-RNN baseline on orange extraction task: failed modality coordination
               </p>
             </div>
           </div>
