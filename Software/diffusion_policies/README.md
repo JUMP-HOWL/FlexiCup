@@ -189,7 +189,7 @@ python eval.py --checkpoint /path/to/model.ckpt --output-dir ./eval_results
   - Random cropping augmentation (76×76 from 224×224)
 
 ### 2. Orange Extraction Task
-- **Objective**: Remove transparent cover in vision mode, realign above orange, then tactile-guided grasping with LED-enabled contact detection
+- **Objective**: Remove transparent cover in vision mode, realign above orange, then Tactile-aware grasping with LED-enabled contact detection
 - **Demonstrations**: 100 demos collected via kinesthetic teaching at 30 Hz, downsampled to 10 Hz
 - **Configuration**: `valve_policy.yaml`
 - **Success Rate**: 66.7% (full system)
