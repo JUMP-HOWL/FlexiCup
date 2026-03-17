@@ -49,6 +49,116 @@
   <style>
     body {
       scroll-behavior: smooth;
+      padding-top: 60px;
+    }
+
+    /* Navigation bar styles - matching al-folio theme */
+    .project-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: #ffffff;
+      border-bottom: 1px solid #e8e8e8;
+      opacity: 0.95;
+      box-shadow: none;
+      padding: 0.5rem 1rem;
+    }
+    .project-navbar .container {
+      max-width: 930px;
+      margin: 0 auto;
+      padding: 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .project-nav-list {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+    .project-nav-item {
+      position: relative;
+    }
+    .project-nav-link {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: #111111;
+      text-decoration: none;
+      transition: color 0.2s ease-in-out;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+    .project-nav-link:hover {
+      color: #0076df;
+      text-decoration: none;
+    }
+    .project-nav-dropdown .project-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .nav-arrow {
+      font-size: 0.7rem;
+    }
+    .project-nav-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 0.5rem;
+      background-color: #ffffff;
+      border: 1px solid #e8e8e8;
+      border-radius: 0.25rem;
+      min-width: 180px;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+    .project-nav-menu.show {
+      display: block;
+    }
+    .project-nav-menu a {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: #111111;
+      text-decoration: none;
+      transition: all 0.2s ease-in-out;
+      white-space: nowrap;
+    }
+    .project-nav-menu a:hover {
+      color: #0076df;
+      background-color: #ffffff;
+    }
+
+    /* Author block styling */
+    .publication-authors {
+      margin-top: 15px;
+      line-height: 1.8;
+    }
+
+    .author-block {
+      display: inline-block;
+      margin: 0 3px;
+    }
+
+    .author-block a {
+      color: #363636;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .author-block a:hover {
+      color: #3273dc;
+      text-decoration: underline;
+    }
+
+    .author-block sup {
+      margin-left: 2px;
     }
 
     /* Custom video player styles */
@@ -167,6 +277,41 @@
 </head>
 <body>
 
+<!-- Navigation Bar -->
+<nav class="project-navbar">
+  <div class="container">
+    <ul class="project-nav-list">
+      <li class="project-nav-item project-nav-dropdown">
+        <a class="project-nav-link" onclick="toggleProjectNav(event)">
+          <span>Project Websites</span>
+          <span class="nav-arrow">▼</span>
+        </a>
+        <div class="project-nav-menu" id="projectNavMenu">
+          <a href="https://junhaogong.top/">Home</a>
+          <a href="https://moiretac.junhaogong.top/">MoiréTac</a>
+          <a href="https://ultratac.junhaogong.top/">UltraTac</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+function toggleProjectNav(event) {
+  event.preventDefault();
+  const menu = document.getElementById('projectNavMenu');
+  menu.classList.toggle('show');
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+  const dropdown = document.querySelector('.project-nav-dropdown');
+  if (!dropdown.contains(event.target)) {
+    document.getElementById('projectNavMenu').classList.remove('show');
+  }
+});
+</script>
+
 <!-- Side Navigation -->
 <nav class="side-nav">
   <a href="#overview" class="main-link">Overview</a>
@@ -194,7 +339,43 @@
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">FlexiCup: Wireless Multimodal Suction Cup with Dual-Zone Vision-Tactile Sensing</h1>
           <div class="is-size-5 publication-authors">
-            <span class="author-block">Anonymous Submission</span>
+            <span class="author-block">
+              <a href="https://junhaogong.top/" target="_blank">Junhao Gong</a><sup>1,2*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.shoujie.top/" target="_blank" style="color: inherit; text-decoration: none;">Shoujie Li</a><sup>1*†</sup>,
+            </span>
+            <span class="author-block">
+             <a href="https://sou350121.github.io/sou350121tt/" target="_blank" style="color: inherit; text-decoration: none;">Kit-Wa Sou</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a>Changqing Guo</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a>Hourong Huang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a>Tong Wu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a>Yifan Xie</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a>Chenxin Liang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a>Chuqiao Lyu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a>Xiaojun Liang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a>Wenbo Ding</a><sup>1†</sup>
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Tsinghua University,</span>
+            <span class="author-block"><sup>2</sup>Pengcheng Laboratory</span>
           </div>
 
           <div class="column has-text-centered">
